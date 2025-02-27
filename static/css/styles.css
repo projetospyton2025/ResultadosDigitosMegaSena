@@ -1,0 +1,168 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+    color: #2E8B57;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: #006400;
+}
+
+.centralizado {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: #32CD32;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #28a745;
+}
+
+.loading, .completed {
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.completed {
+    color: red;
+}
+
+/* Estilos para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #F0F8FF;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #4CAF50;
+    font-size: small;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #F9F9F9;
+}
+
+tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+.copy-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.copy-button:hover {
+    background-color: #45a049;
+}
+
+/* EstatÃ­sticas de dÃ­gitos */
+.statistics-container {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 5px;
+    border: 1px solid #4CAF50;
+}
+
+.digit-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.digit-frequency, .digit-charts {
+    flex: 1;
+    min-width: 300px;
+    margin: 10px;
+}
+
+.digit-box {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.digit-count {
+    font-size: 14px;
+    display: block;
+    color: #333;
+}
+
+.download-buttons {
+    margin: 20px 0;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .digit-stats {
+        flex-direction: column;
+    }
+    
+    .digit-frequency, .digit-charts {
+        width: 100%;
+    }
+    
+    table {
+        font-size: 12px;
+    }
+    
+    th, td {
+        padding: 5px;
+    }
+}

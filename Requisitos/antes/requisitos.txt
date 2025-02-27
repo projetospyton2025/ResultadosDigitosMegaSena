@@ -1,0 +1,280 @@
+PARA TUDO ISSO ESPERO ME DEPARAR COM APENAS UM ARQUIVOS CHAMADO.. resultadosdigitosmegasena.ps1
+
+o código deve ser em python com interface web
+use e configure o redis para rodar mais rápidamente
+crie um script para rodar a aplicação automaticamente tudo
+.gitignore .env 
+criar pastas, arquivos, criar e ativar ambiente virtual e instalar o arquivo requirements.txt
+os conteudo dos arquivos devem ser carregados automaticamente assim que rodar o script.
+o scripts deve chamar resultadosdigitosmegasena.ps1
+ele vai ser rodado a partir do drive c: porem devera ser criado em 
+J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena
+
+
+
+
+
+dados redis:
+REDIS_HOST=redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com
+REDIS_PORT=13833
+REDIS_PASSWORD=B058xThhTvAbptQa0s25EAGk7A5u473O
+REDIS_DB=0
+FLASK_ENV=development
+REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
+
+
+
+dados api: 
+use esta variavel e estas api deixa a do heroku ativa e a outra comentada
+API_BASE_URL = "https://loteriascaixa-api.herokuapp.com/api"
+# API_BASE_URL = 'https://servicebus2.caixa.gov.br/portaldeloterias/api/megasena'  # API da Caixa
+API_BASE_URL = 'https://loteriascaixa-api.herokuapp.com/api'  # API do Heroku
+
+
+
+
+
+
+CRIAR UM CÓDIGO PARA RASTREAR APENAS OS DIGITOS NOS RESULTADOS
+E
+CONTAR QUANTOS DIGITOS
+ORDENAR POR ORDEM CRESCENTE
+FACILITAR A CÓPIA E A COLAGEM COM VIRGULAS PARA O APP COMBINAÇÃO I
+TRAZER UMA ESTATISTICA SOBRE ELES..
+MAIS DIGITOS
+MENOS DIGITOS
+FREQUENCIAS ETC
+
+
+USE ESTE EXEMPLO MAS COM OS ARQUIVOS SEPARADOS CSS,JS HTML ETC
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados da Mega-Sena</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #FFFFFF;
+            color: #2E8B57;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            color: #006400;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #F0F8FF;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #4CAF50;
+            font-size: small;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #F9F9F9;
+        }
+        tr:nth-child(odd) {
+            background-color: #FFFFFF;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+        .button {
+            background-color: #32CD32;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            display: inline-block;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #28a745;
+        }
+        .download-buttons {
+            margin-top: 20px;
+        }
+        .completed {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Resultados da Mega-Sena</h1>
+    
+    <div class="centralizado">
+        <p>Resultados de todos os sorteios da Mega Sena</p>
+    </div>
+
+    <div class="filters-container">
+        <button class="button" onclick="fetchAllMegaSenaResults()">Carregar Resultados</button>
+    </div>
+
+    <div id="loadingMessage" class="loading" style="display: none;">Carregando resultados...</div>
+    <hr />
+    <div id="completedMessage" class="completed" style="display: none;">Carregamento concluído!</div>
+
+    <table id="megaSenaResults">
+        <thead>
+            <tr>
+                <th>Concurso</th>
+                <th>Data do Sorteio</th>
+                <th>Dezenas Sorteadas</th>
+                <th>Dezenas Sorteadas (+1)</th>
+                <th>Dezenas Sorteadas (+2)</th>
+                <th>Dezenas Sorteadas (-1)</th>
+                <th>Dezenas Sorteadas (-2)</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <!-- Botões de Download -->
+    <div class="download-buttons">
+        <button class="button" onclick="downloadCSV()">Baixar CSV</button>
+        <button class="button" onclick="downloadJSON()">Baixar JSON</button>
+        <button class="button" onclick="downloadTXT()">Baixar TXT</button>
+        <button class="button" onclick="downloadXML()">Baixar XML</button>
+    </div>
+</div>
+
+<footer>Feito por: <i>Márcio Fernando Maia - Todos os direitos reservados - 2025</i></footer>
+
+<script>
+let allResults = [];
+
+async function fetchAllMegaSenaResults() {
+    const baseUrl = 'https://loteriascaixa-api.herokuapp.com/api/megasena';
+    const loadingMessage = document.getElementById('loadingMessage');
+    const completedMessage = document.getElementById('completedMessage');
+    const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
+
+    loadingMessage.style.display = 'block';
+    completedMessage.style.display = 'none';
+    tableBody.innerHTML = '';
+    allResults = [];
+
+    try {
+        const response = await fetch(baseUrl);
+        if (!response.ok) throw new Error('Erro ao acessar a API.');
+
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0].dezenas)) {
+            allResults = data.map(item => ({
+                concurso: item.concurso,
+                data: item.data,
+                dezenas: item.dezenas,
+                dezenasPlus1: adjustDezenas(item.dezenas, 1),
+                dezenasPlus2: adjustDezenas(item.dezenas, 2),
+                dezenasMinus1: adjustDezenas(item.dezenas, -1),
+                dezenasMinus2: adjustDezenas(item.dezenas, -2)
+            }));
+
+            renderResults(allResults);
+        } else {
+            throw new Error('Formato de dados inválido.');
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Erro ao buscar os resultados.');
+    } finally {
+        loadingMessage.style.display = 'none';
+        completedMessage.style.display = 'block';
+    }
+}
+
+function adjustDezenas(dezenas, adjustment) {
+    return dezenas.map(num => {
+        let adjustedNum = parseInt(num) + adjustment;
+        if (adjustedNum < 1) adjustedNum = 1;
+        if (adjustedNum > 60) adjustedNum = 60;
+        return adjustedNum.toString().padStart(2, '0');
+    });
+}
+
+function renderResults(results) {
+    const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = '';
+
+    results.forEach(result => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+            <td>${result.concurso}</td>
+            <td>${result.data}</td>
+            <td>${result.dezenas.join(' - ')}</td>
+            <td>${result.dezenasPlus1.join(' - ')}</td>
+            <td>${result.dezenasPlus2.join(' - ')}</td>
+            <td>${result.dezenasMinus1.join(' - ')}</td>
+            <td>${result.dezenasMinus2.join(' - ')}</td>
+        `;
+    });
+}
+
+// Funções para download
+function downloadCSV() {
+    let csvContent = "Concurso,Data,Dezenas,+1,+2,-1,-2\n";
+    allResults.forEach(result => {
+        csvContent += `${result.concurso},${result.data},"${result.dezenas.join('-')}","${result.dezenasPlus1.join('-')}","${result.dezenasPlus2.join('-')}","${result.dezenasMinus1.join('-')}","${result.dezenasMinus2.join('-')}"\n`;
+    });
+    downloadFile(csvContent, 'mega_sena.csv', 'text/csv');
+}
+
+function downloadJSON() {
+    const jsonContent = JSON.stringify(allResults, null, 2);
+    downloadFile(jsonContent, 'mega_sena.json', 'application/json');
+}
+
+function downloadTXT() {
+    let txtContent = "Resultados da Mega-Sena:\n\n";
+    allResults.forEach(result => {
+        txtContent += `Concurso: ${result.concurso} | Data: ${result.data} | Dezenas: ${result.dezenas.join('-')} | (+1): ${result.dezenasPlus1.join('-')} | (+2): ${result.dezenasPlus2.join('-')} | (-1): ${result.dezenasMinus1.join('-')} | (-2): ${result.dezenasMinus2.join('-')}\n`;
+    });
+    downloadFile(txtContent, 'mega_sena.txt', 'text/plain');
+}
+
+function downloadXML() {
+    let xmlContent = '<?xml version="1.0" encoding="UTF-8"?><resultados>';
+    allResults.forEach(result => {
+        xmlContent += `<concurso><numero>${result.concurso}</numero><data>${result.data}</data></concurso>`;
+    });
+    xmlContent += '</resultados>';
+    downloadFile(xmlContent, 'mega_sena.xml', 'text/xml');
+}
+
+function downloadFile(content, fileName, type) {
+    const blob = new Blob([content], { type });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+}
+</script>
+
+</body>
+</html>
+

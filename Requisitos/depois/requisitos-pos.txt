@@ -1,0 +1,8 @@
+em relação às dezenas sorteadas... os digitos devem ser separados e ignorados os que se repetem 
+por exemplo 01 - 03 - 13 - 16 - 36 - 56  temos os digitos 0,1,3,5,6 resultando no total de cinco digitos
+acho que so com esta explicação vc deve entender... 
+
+então na aplicação ficaria
+Dígitos 6 5 3 1 0 (NÃO acrescente a virgula DEIXE APENAS COM ESPAÇOS)
+Dígitos Ordenados 0,1,3,5,6 (ACRESCENTE a virgula)
+Qtd. Dígitos 5
