@@ -1,8 +1,32 @@
-em relação às dezenas sorteadas... os digitos devem ser separados e ignorados os que se repetem 
-por exemplo 01 - 03 - 13 - 16 - 36 - 56  temos os digitos 0,1,3,5,6 resultando no total de cinco digitos
-acho que so com esta explicação vc deve entender... 
+na Estatísticas de Dígitos
 
-então na aplicação ficaria
-Dígitos 6 5 3 1 0 (NÃO acrescente a virgula DEIXE APENAS COM ESPAÇOS)
-Dígitos Ordenados 0,1,3,5,6 (ACRESCENTE a virgula)
-Qtd. Dígitos 5
+Frequência de Dígitos
+Gráfico de Frequência
+
+preciso que seja classificado pelo numero vezes que saiu o digito e não por digito.. 
+veja
+Gráfico de Frequência
+0 	4242
+1 	4504
+2 	4437
+3 	4715
+4 	4605
+5 	4477
+6 	1963
+7 	1711
+8 	1683
+9 	1659
+
+mostre na ordem em que o digito mais saiu.. 
+então ficaria assim
+3	4715
+4	4605
+1	4504
+5	4477
+2	4437
+0	4242
+6	1963
+7	1711
+8	1683
+9	1659
+

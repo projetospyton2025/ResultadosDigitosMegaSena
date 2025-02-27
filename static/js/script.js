@@ -116,17 +116,20 @@
         digitFrequencyDiv.innerHTML = '';
         digitChartDiv.innerHTML = '';
         
-        // Criar visualização da frequência de dígitos
-        Object.entries(stats).forEach(([digit, count]) => {
+        // Ordenar os dígitos por frequência (do maior para o menor)
+        const sortedDigits = Object.entries(stats).sort((a, b) => b[1] - a[1]);
+        
+        // Criar visualização da frequência de dígitos - Ordenada por frequência
+        sortedDigits.forEach(([digit, count]) => {
             const digitBox = document.createElement('div');
             digitBox.className = 'digit-box';
             digitBox.innerHTML = `${digit}<span class="digit-count">${count}</span>`;
             digitFrequencyDiv.appendChild(digitBox);
         });
         
-        // Criar gráfico de barras simples para frequência de dígitos
+        // Criar gráfico de barras para frequência de dígitos - Ordenado por frequência
         const maxCount = Math.max(...Object.values(stats));
-        const chartHtml = Object.entries(stats).map(([digit, count]) => {
+        const chartHtml = sortedDigits.map(([digit, count]) => {
             const percentage = (count / maxCount) * 100;
             return `
                 <div style="margin: 10px 0;">
@@ -185,9 +188,10 @@
         
         let txtContent = "Análise de Dígitos da Mega-Sena\n\n";
         
-        // Adicionar estatísticas
-        txtContent += "ESTATÍSTICAS DE FREQUÊNCIA DOS DÍGITOS:\n";
-        Object.entries(digitStats).forEach(([digit, count]) => {
+        // Adicionar estatísticas - ordenar por frequência para o arquivo TXT também
+        txtContent += "ESTATÍSTICAS DE FREQUÊNCIA DOS DÍGITOS (ORDEM DECRESCENTE):\n";
+        const sortedStats = Object.entries(digitStats).sort((a, b) => b[1] - a[1]);
+        sortedStats.forEach(([digit, count]) => {
             txtContent += `Dígito ${digit}: ${count} ocorrências\n`;
         });
         
