@@ -23,16 +23,6 @@
     async function fetchDigitosResults() {
 		// No início da função fetchDigitosResults
 		console.log("Função fetchDigitosResults iniciada");
-		
-		const loadButton = document.getElementById('loadButton');
-
-		// Desabilitar o botão enquanto carrega
-		if (loadButton) {
-			loadButton.disabled = true;
-			loadButton.style.opacity = '0.6';
-			loadButton.style.cursor = 'not-allowed';
-		}
-		
         const loadingMessage = document.getElementById('loadingMessage');
         const completedMessage = document.getElementById('completedMessage');
         const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
@@ -86,13 +76,6 @@
         } finally {
             loadingMessage.style.display = 'none';
             completedMessage.style.display = 'block';
-			
-			// Reabilitar o botão quando o carregamento terminar
-			if (loadButton) {
-				loadButton.disabled = false;
-				loadButton.style.opacity = '1';
-				loadButton.style.cursor = 'pointer';
-			}
         }
     }
     

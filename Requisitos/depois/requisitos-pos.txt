@@ -5,7 +5,28 @@ NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO
 NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
 NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
 
-APENAS IMPLEMENTE O QUE EU SOLICITAR, TRAGA AS INFORMAÇÕES EM PORTUGUES E DETALHAE DE COMO IMPLANTAR
+
+MANTENHA AS ESTATÍTICAS ATUAIS QUE SÃO Combinações Mais Frequentes E Resumo por Quantidade de Dígitos
+
+
+APENAS IMPLEMENTE O QUE EU SOLICITAR, TRAGA AS INFORMAÇÕES EM PORTUGUES E OS MINIMOS DETALHES DE COMO IMPLANTAR
+
+
+AGORA EU QUERO O MÁXIMO DE ESTATISTICA... VEJA AS FIGURAS
+1.JPG, 2.JPG, 3.JPG e 4.jpg certamente vc vai entender o que eu quero..
+
+na hora de criar a frequencia...ou seja o valores 86 - 84 = 2 116 - 86 = 30 146 - 116 = 30
+não precisa aparecer apenas aparecendo o 2,30, 30 está ótimo isso para todas as ocorrencias.. 
+
+observe que vc tras a estatistica de apenas das 10 primeiras combinações.. (faça o que eu pedi para todas.. como vc vai trazer a infroamção não sei. mas traga de algum jeito.. arquivo excel.. html sei lá
+a ia me esquecendo deixe em evidÇencia sempre os maior valor de cada estatistica.. ok.
+pois bem eu preciso dos detalhes dela como mostra na figura 4.jpg que fiz no excel.
+
+no final preciso da media entre eles... se posivel a porcentagem tbm.. enfim
+
+quero rastrear principalmente a frequencas entras os sequencias dedigitos... ok.. pode faer isto por mim???
+
+//////////////////////////////////////////////////////////////////////////
 
 (venv) PS J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena> dir
 
