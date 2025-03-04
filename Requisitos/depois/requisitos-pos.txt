@@ -1,11 +1,16 @@
 NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
 APENAS FAÇA O QUE EU PEDI EM RELAÇÃO AO CARREGAMENTO AUTOMATICO
 
-quero que a app inicie sem a interversão do usuario
-ou seja que ela carregue os resultados assim que for aberta..
-ou em outras palavras não quero que o usuário precise clicar neste botão
-<button class="button" id="loadButton">Carregar Resultados</button>
-
+agora preciso que ao clicar no botão
+<button class="button" id="downloadCSV">Baixar CSV</button>
+a planilha seja formatada exatamente como está na imagem anexa
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
 
 
 

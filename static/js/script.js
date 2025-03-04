@@ -616,40 +616,299 @@
         digitChartDiv.innerHTML = chartHtml;
     }
     
-    // Funções para download
-    function downloadCSV() {
-        if (allResults.length === 0) {
-            alert('Carregue os resultados primeiro!');
-            return;
-        }
-        
-        let csvContent = "Concurso,Data,Dezenas,Digitos,DigitosOrdenados,QuantidadeDigitos\n";
-        
-        filteredResults.forEach(result => {
-            const digitos = result.digitos_para_exibicao || result.digitos.join(' ');
-            const digitosOrdenados = result.digitos_ordenados.join(',');
-            csvContent += `${result.concurso},"${result.data}","${result.dezenas.join('-')}","${digitos}","${digitosOrdenados}",${result.contagem_digitos}\n`;
-        });
-        
-        downloadFile(csvContent, 'digitos_megasena.csv', 'text/csv');
+// Funções para download
+ function downloadCSV() {
+    if (allResults.length === 0) {
+        alert('Carregue os resultados primeiro!');
+        return;
     }
     
-    function downloadJSON() {
-        if (allResults.length === 0) {
-            alert('Carregue os resultados primeiro!');
-            return;
-        }
-        
-        const jsonData = {
-            resultados: filteredResults,
-            estatisticas: digitStats,
-            analise_combinacoes: combinationStats
-        };
-        
-        const jsonContent = JSON.stringify(jsonData, null, 2);
-        downloadFile(jsonContent, 'digitos_megasena.json', 'application/json');
+    // Criando uma tabela HTML que o Excel pode importar corretamente
+    let excelContent = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+    excelContent += '<head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Dígitos Mega-Sena</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->';
+    excelContent += '<style>th { background-color: #000000; color: #ffffff; text-align: left; font-weight: bold; } td { text-align: left; } .concurso { mso-number-format:"0"; }</style>';
+    excelContent += '</head>';
+    excelContent += '<body><table border="1">';
+    
+    // Adicionar cabeçalho com acentos corretos e formatação (fundo preto, fonte branca)
+    excelContent += '<tr>';
+    excelContent += '<th style="background-color: #000000; color: #ffffff;">Concurso</th>';
+    excelContent += '<th style="background-color: #000000; color: #ffffff;">Data</th>';
+    excelContent += '<th style="background-color: #000000; color: #ffffff;">Dezenas</th>';
+    excelContent += '<th style="background-color: #000000; color: #ffffff;">Dígitos</th>';
+    excelContent += '<th style="background-color: #000000; color: #ffffff;">Dígitos Ordenados</th>';
+    excelContent += '<th style="background-color: #000000; color: #ffffff;">Qtd. Dígitos</th>';
+    excelContent += '</tr>';
+    
+    // Adicionar dados (alinhados à esquerda)
+    filteredResults.forEach(result => {
+        excelContent += '<tr>';
+        excelContent += `<td class="concurso" style="text-align: left;">${result.concurso}</td>`;
+        excelContent += `<td style="text-align: left;">${result.data}</td>`;
+        excelContent += `<td style="text-align: left;">${result.dezenas.join(' - ')}</td>`;
+        excelContent += `<td style="text-align: left;">${result.digitos_para_exibicao || result.digitos.join(' ')}</td>`;
+        excelContent += `<td style="text-align: left;">${result.digitos_ordenados.join(',')}</td>`;
+        excelContent += `<td style="text-align: left;">${result.contagem_digitos}</td>`;
+        excelContent += '</tr>';
+    });
+    
+    excelContent += '</table></body></html>';
+    
+    // Criar o blob com tipo MIME para Excel
+    const blob = new Blob([excelContent], {type: 'application/vnd.ms-excel'});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = 'analise_digitos_megasena.xls';
+    link.click();
+}
+   
+function downloadJSON() {
+    if (allResults.length === 0) {
+        alert('Carregue os resultados primeiro!');
+        return;
     }
     
+    // Criar conteúdo HTML formatado
+    let htmlContent = `
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Análise de Dígitos da Mega-Sena</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f0f8ff;
+                color: #333;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: white;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                border-radius: 5px;
+            }
+            h1, h2, h3 {
+                color: #006400;
+                text-align: center;
+            }
+            .section {
+                margin-bottom: 30px;
+                padding: 15px;
+                background-color: #f9f9f9;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 15px 0;
+            }
+            th {
+                background-color: #000000;
+                color: white;
+                padding: 10px;
+                text-align: left;
+            }
+            td {
+                padding: 8px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            .digit-box {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                margin: 5px;
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 50%;
+                font-weight: bold;
+            }
+            .digit-count {
+                font-size: 12px;
+                color: #666;
+                display: block;
+                text-align: center;
+            }
+            .footer {
+                text-align: center;
+                margin-top: 20px;
+                font-size: 12px;
+                color: #666;
+                padding: 10px;
+                border-top: 1px solid #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Análise de Dígitos da Mega-Sena</h1>
+            
+            <div class="section">
+                <h2>Estatísticas de Frequência dos Dígitos</h2>
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; margin: 20px 0;">
+    `;
+    
+    // Adicionar estatísticas de dígitos
+    const sortedDigits = Object.entries(digitStats).sort((a, b) => b[1] - a[1]);
+    sortedDigits.forEach(([digit, count]) => {
+        htmlContent += `
+            <div class="digit-box">${digit}
+                <span class="digit-count">${count} vezes</span>
+            </div>
+        `;
+    });
+    
+    htmlContent += `
+                </div>
+                
+                <h3>Gráfico de Frequência</h3>
+                <div style="padding: 15px;">
+    `;
+    
+    // Adicionar gráfico de barras simples
+    const maxCount = Math.max(...Object.values(digitStats));
+    sortedDigits.forEach(([digit, count]) => {
+        const percentage = (count / maxCount) * 100;
+        htmlContent += `
+            <div style="margin: 10px 0; display: flex; align-items: center;">
+                <div style="width: 30px; text-align: center; font-weight: bold;">${digit}</div>
+                <div style="flex-grow: 1; margin: 0 10px;">
+                    <div style="background-color: #4CAF50; height: 24px; width: ${percentage}%;"></div>
+                </div>
+                <div style="width: 60px; text-align: right;">${count}</div>
+            </div>
+        `;
+    });
+    
+    htmlContent += `
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Resumo por Quantidade de Dígitos</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Qtd. Dígitos</th>
+                            <th>Número de Sorteios</th>
+                            <th>Porcentagem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+    
+    // Adicionar resumo por quantidade de dígitos
+    const qtdKeys = Object.keys(combinationStats.porQuantidade)
+        .sort((a, b) => parseInt(a) - parseInt(b));
+    
+    qtdKeys.forEach(qtd => {
+        const count = combinationStats.porQuantidade[qtd].length;
+        const percentage = ((count / allResults.length) * 100).toFixed(2);
+        htmlContent += `
+            <tr>
+                <td>${qtd}</td>
+                <td>${count}</td>
+                <td>${percentage}%</td>
+            </tr>
+        `;
+    });
+    
+    htmlContent += `
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>Combinações Mais Frequentes</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Combinação</th>
+                            <th>Qtd. Dígitos</th>
+                            <th>Frequência</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+    
+    // Adicionar combinações mais frequentes
+    combinationStats.combinacoesFrequentes.slice(0, 10).forEach(combo => {
+        htmlContent += `
+            <tr>
+                <td>${combo.digitos.join(',')}</td>
+                <td>${combo.quantidade}</td>
+                <td>${combo.concursos.length}</td>
+            </tr>
+        `;
+    });
+    
+    htmlContent += `
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>Resultados Detalhados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Concurso</th>
+                            <th>Data</th>
+                            <th>Dezenas</th>
+                            <th>Dígitos</th>
+                            <th>Dígitos Ordenados</th>
+                            <th>Qtd. Dígitos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+    
+    // Adicionar resultados detalhados
+    filteredResults.forEach(result => {
+        htmlContent += `
+            <tr>
+                <td>${result.concurso}</td>
+                <td>${result.data || ''}</td>
+                <td>${result.dezenas.join(' - ')}</td>
+                <td>${result.digitos_para_exibicao || result.digitos.join(' ')}</td>
+                <td>${result.digitos_ordenados.join(',')}</td>
+                <td>${result.contagem_digitos}</td>
+            </tr>
+        `;
+    });
+    
+    htmlContent += `
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="footer">
+                <p>Relatório gerado em: ${new Date().toLocaleString('pt-BR')}</p>
+                <p>Total de resultados analisados: ${allResults.length}</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
+    
+    // Criar o blob com tipo MIME para HTML
+    const blob = new Blob([htmlContent], {type: 'text/html;charset=utf-8'});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = 'analise_digitos_megasena.html';
+    link.click();
+}    
     function downloadTXT() {
         if (allResults.length === 0) {
             alert('Carregue os resultados primeiro!');
@@ -691,7 +950,7 @@
             txtContent += `Quantidade: ${result.contagem_digitos}\n`;
         });
         
-        downloadFile(txtContent, 'digitos_megasena.txt', 'text/plain');
+        downloadFile(txtContent, 'analise_digitos_megasena.txt', 'text/plain');
     }
 	
 	// Função auxiliar para download de arquivos
