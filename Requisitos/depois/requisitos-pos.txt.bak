@@ -1,11 +1,19 @@
 NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
-NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
-NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
-NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
-NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
-NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
+APENAS FAÇA O QUE EU PEDI EM RELAÇÃO AO CARREGAMENTO AUTOMATICO
 
-APENAS IMPLEMENTE O QUE EU SOLICITAR, TRAGA AS INFORMAÇÕES EM PORTUGUES E DETALHAE DE COMO IMPLANTAR
+agora preciso que ao clicar no botão
+<button class="button" id="downloadCSV">Baixar CSV</button>
+a planilha seja formatada exatamente como está na imagem anexa
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+foque na imagem anexa...img1.jpg
+
+
+
 
 (venv) PS J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena> dir
 
@@ -16,205 +24,338 @@ APENAS IMPLEMENTE O QUE EU SOLICITAR, TRAGA AS INFORMAÇÕES EM PORTUGUES E DETA
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 d-----        27/02/2025     04:47                Requisitos
-d-----        27/02/2025     04:46                .git
-d-----        27/02/2025     05:43                venv
-d-----        27/02/2025     05:43                app
-d-----        27/02/2025     05:43                templates
 d-----        27/02/2025     05:43                static
-------        27/02/2025     04:46             27 README.md
+d-----        03/03/2025     10:14                templates
+d-----        27/02/2025     06:14                app
+d-----        27/02/2025     05:43                venv
 ------        27/02/2025     04:46           1096 LICENSE
+------        27/02/2025     04:46             27 README.md
 ------        27/02/2025     05:43            108 requirements.txt
-------        28/02/2025     06:12           1625 run.py
 ------        27/02/2025     05:43            221 .gitignore
+------        28/02/2025     06:12           1625 run.py
 ------        28/02/2025     06:18            497 .env
 ------        27/02/2025     05:59           7788 run.ps1
 ------        27/02/2025     05:59              0 app.log
 
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+    color: #2E8B57;
+}
 
-import logging
-from app import app
-from dotenv import load_dotenv, find_dotenv
-import redis
-import os
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-# Tenta encontrar e carregar o arquivo .env
-dotenv_path = find_dotenv()
-if not dotenv_path:
-    print("❌ ERRO: Arquivo .env não encontrado!")
-else:
-    print(f"✅ Arquivo .env encontrado: {dotenv_path}")
-    load_dotenv(dotenv_path)
+h1, h2, h3 {
+    text-align: center;
+    color: #006400;
+}
 
-# Pegando a URL do Redis
-REDIS_URL = os.getenv("REDIS_URL")
+.centralizado {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-print(f"🔍 REDIS_URL: {REDIS_URL}")  # Deve exibir a URL do Redis, não None!
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
 
-if not REDIS_URL:
-    print("❌ ERRO: REDIS_URL não foi carregada! Verifique o .env ou defina manualmente.")
-    exit(1)  # Encerra o programa se a variável não foi carregada corretamente
+.button {
+    background-color: #32CD32;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
 
-try:
-    # Criando a conexão com o Redis
-    redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=True)
+.button:hover {
+    background-color: #28a745;
+}
+
+.loading, .completed {
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.completed {
+    color: red;
+}
+
+/* Estilos para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #F0F8FF;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #4CAF50;
+    font-size: small;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #F9F9F9;
+}
+
+tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+.copy-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.copy-button:hover {
+    background-color: #45a049;
+}
+
+/* EstatÃ­sticas de dÃ­gitos */
+.statistics-container {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 5px;
+    border: 1px solid #4CAF50;
+}
+
+.digit-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.digit-frequency, .digit-charts {
+    flex: 1;
+    min-width: 300px;
+    margin: 10px;
+}
+
+.digit-box {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.digit-count {
+    font-size: 14px;
+    display: block;
+    color: #333;
+}
+
+.download-buttons {
+    margin: 20px 0;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 14px;
+    color: #666;
+}
+/* Estilos para filtros */
+.filter-container {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f0f8ff;
+    border-radius: 5px;
+    border: 1px solid #4CAF50;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.filter-item label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.filter-item select {
+    padding: 5px;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+}
+
+.results-info {
+    margin: 10px 0;
+    font-style: italic;
+    color: #666;
+}
+
+/* Estilos para análise de combinações */
+.combination-analysis {
+    margin: 30px 0;
+}
+
+.combinations-table, .summary-table, .similares-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.details-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.details-button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para modal */
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 5px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: black;
+}
+
+.diferencas .de {
+    color: #d9534f;
+}
+
+.diferencas .para {
+    color: #5bc0de;
+}
+
+.combo-info, .similares-info {
+    margin: 15px 0;
+}
+/* Estilos para destacar valores máximos */
+
+/* Transições suaves para todos os elementos */
+.digit-box, .digit-count, #digitChart div, 
+.combinations-table tr, .summary-table tr, .similares-table tr,
+.combinations-table td, .summary-table td, .similares-table td {
+    transition: all 0.3s ease;
+}
+
+/* Caixa de dígito destacada */
+.digit-box-highlighted {
+    background-color: #d9534f !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(217, 83, 79, 0.7);
+    z-index: 2;
+    position: relative;
+}
+
+.digit-box-highlighted .digit-count {
+    font-weight: bold;
+    color: white !important;
+}
+
+/* Linha de tabela destacada */
+.row-highlighted {
+    background-color: rgba(217, 83, 79, 0.15) !important;
+}
+
+/* Célula destacada */
+.cell-highlighted {
+    font-weight: bold !important;
+    color: #d9534f !important;
+    font-size: 110% !important;
+}
+
+/* Barra de gráfico destacada */
+.bar-highlighted {
+    background-color: #d9534f !important;
+    height: 24px !important;
+}
+
+
+
+/* Responsividade melhorada */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
     
-    # Testando a conexão
-    redis_client.ping()
-    print("✅ Conexão com o Redis estabelecida com sucesso!")
-
-except Exception as e:
-    print(f"❌ Erro ao conectar ao Redis: {type(e).__name__} - {e}")
-
-
-# Configurar logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler('app.log')
-    ]
-)
-
-logger = logging.getLogger(__name__)
-
-
-if __name__ == '__main__':
-    logger.info("Iniciando aplicação...")
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
-  
-"""
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
-"""
-
-Flask==2.3.3
-Flask-Cors==4.0.0
-redis==5.0.1
-python-dotenv==1.0.0
-requests==2.31.0
-gunicorn==21.2.0
-
-
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*.class
-
-# Environment
-.env
-venv/
-env/
-ENV/
-
-# Flask
-instance/
-.webassets-cache
-
-# Redis
-dump.rdb
-
-# Logs
-*.log
-
-# Outros
-.DS_Store
-
-
-#REDIS_HOST=redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com
-#REDIS_PORT=13833
-#REDIS_PASSWORD=B058xThhTvAbptQa0s25EAGk7A5u473O
-#REDIS_DB=0
-#FLASK_ENV=development
-#REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
-API_BASE_URL=https://loteriascaixa-api.herokuapp.com/api
-
-
-REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados Dígitos Mega-Sena</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Análise de Dígitos da Mega-Sena</h1>
-        
-        <div class="centralizado">
-            <p>Análise dos dígitos de todos os sorteios da Mega Sena</p>
-        </div>
-
-        <div class="actions">
-            <button class="button" id="loadButton">Carregar Resultados</button>
-        </div>
-
-        <div id="loadingMessage" class="loading" style="display: none;">Carregando resultados...</div>
-        <div id="completedMessage" class="completed" style="display: none;">Carregamento concluído!</div>
-
-        <!-- Nova seção de filtros -->
-        <div id="filterContainer" class="filter-container">
-            <!-- Será preenchido via JavaScript -->
-        </div>
-
-        <!-- Estatísticas de Dígitos -->
-        <div class="statistics-container">
-            <h2>Estatísticas de Dígitos</h2>
-            <div id="digitStats" class="digit-stats">
-                <div class="digit-frequency">
-                    <h3>Frequência de Dígitos</h3>
-                    <div id="digitFrequency"></div>
-                </div>
-                <div class="digit-charts">
-                    <h3>Gráfico de Frequência</h3>
-                    <div id="digitChart"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nova seção de análise de combinações -->
-        <div id="combinationAnalysis" class="combination-analysis">
-            <!-- Será preenchido via JavaScript -->
-        </div>
-
-        <!-- Tabela de Resultados -->
-        <h2>Resultados Detalhados</h2>
-        <table id="megaSenaResults">
-            <thead>
-                <tr>
-                    <th>Concurso</th>
-                    <th>Data</th>
-                    <th>Dezenas</th>
-                    <th>Dígitos</th>
-                    <th>Dígitos Ordenados</th>
-                    <th>Qtd. Dígitos</th>
-                    <th>Copiar</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-        <!-- Botões de Download -->
-        <div class="download-buttons">
-            <button class="button" id="downloadCSV">Baixar XLS</button>
-            <button class="button" id="downloadJSON">Baixar HTML</button>
-            <button class="button" id="downloadTXT">Baixar TXT</button>
-        </div>
-    </div>
-
-    <footer>Feito por: <i>Márcio Fernando Maia - Todos os direitos reservados - 2025</i></footer>
-
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/highlight-max.js') }}"></script>
-</body>
-</html>
+    .filter-item {
+        margin: 5px 0;
+        width: 100%;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+}
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -233,10 +374,6 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadCSVButton.addEventListener('click', downloadCSV);
     downloadJSONButton.addEventListener('click', downloadJSON);
     downloadTXTButton.addEventListener('click', downloadTXT);
-	
-	
-	// Chamar fetchDigitosResults automaticamente quando a página carregar
-    fetchDigitosResults();
     
     // Função para buscar os resultados - com tratamento de erros melhorado
     async function fetchDigitosResults() {
@@ -835,299 +972,40 @@ document.addEventListener('DOMContentLoaded', function() {
         digitChartDiv.innerHTML = chartHtml;
     }
     
-// Funções para download
- function downloadCSV() {
-    if (allResults.length === 0) {
-        alert('Carregue os resultados primeiro!');
-        return;
+    // Funções para download
+    function downloadCSV() {
+        if (allResults.length === 0) {
+            alert('Carregue os resultados primeiro!');
+            return;
+        }
+        
+        let csvContent = "Concurso,Data,Dezenas,Digitos,DigitosOrdenados,QuantidadeDigitos\n";
+        
+        filteredResults.forEach(result => {
+            const digitos = result.digitos_para_exibicao || result.digitos.join(' ');
+            const digitosOrdenados = result.digitos_ordenados.join(',');
+            csvContent += `${result.concurso},"${result.data}","${result.dezenas.join('-')}","${digitos}","${digitosOrdenados}",${result.contagem_digitos}\n`;
+        });
+        
+        downloadFile(csvContent, 'digitos_megasena.csv', 'text/csv');
     }
     
-    // Criando uma tabela HTML que o Excel pode importar corretamente
-    let excelContent = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
-    excelContent += '<head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Dígitos Mega-Sena</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->';
-    excelContent += '<style>th { background-color: #000000; color: #ffffff; text-align: left; font-weight: bold; } td { text-align: left; } .concurso { mso-number-format:"0"; }</style>';
-    excelContent += '</head>';
-    excelContent += '<body><table border="1">';
-    
-    // Adicionar cabeçalho com acentos corretos e formatação (fundo preto, fonte branca)
-    excelContent += '<tr>';
-    excelContent += '<th style="background-color: #000000; color: #ffffff;">Concurso</th>';
-    excelContent += '<th style="background-color: #000000; color: #ffffff;">Data</th>';
-    excelContent += '<th style="background-color: #000000; color: #ffffff;">Dezenas</th>';
-    excelContent += '<th style="background-color: #000000; color: #ffffff;">Dígitos</th>';
-    excelContent += '<th style="background-color: #000000; color: #ffffff;">Dígitos Ordenados</th>';
-    excelContent += '<th style="background-color: #000000; color: #ffffff;">Qtd. Dígitos</th>';
-    excelContent += '</tr>';
-    
-    // Adicionar dados (alinhados à esquerda)
-    filteredResults.forEach(result => {
-        excelContent += '<tr>';
-        excelContent += `<td class="concurso" style="text-align: left;">${result.concurso}</td>`;
-        excelContent += `<td style="text-align: left;">${result.data}</td>`;
-        excelContent += `<td style="text-align: left;">${result.dezenas.join(' - ')}</td>`;
-        excelContent += `<td style="text-align: left;">${result.digitos_para_exibicao || result.digitos.join(' ')}</td>`;
-        excelContent += `<td style="text-align: left;">${result.digitos_ordenados.join(',')}</td>`;
-        excelContent += `<td style="text-align: left;">${result.contagem_digitos}</td>`;
-        excelContent += '</tr>';
-    });
-    
-    excelContent += '</table></body></html>';
-    
-    // Criar o blob com tipo MIME para Excel
-    const blob = new Blob([excelContent], {type: 'application/vnd.ms-excel'});
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = 'analise_digitos_megasena.xls';
-    link.click();
-}
-   
-function downloadJSON() {
-    if (allResults.length === 0) {
-        alert('Carregue os resultados primeiro!');
-        return;
+    function downloadJSON() {
+        if (allResults.length === 0) {
+            alert('Carregue os resultados primeiro!');
+            return;
+        }
+        
+        const jsonData = {
+            resultados: filteredResults,
+            estatisticas: digitStats,
+            analise_combinacoes: combinationStats
+        };
+        
+        const jsonContent = JSON.stringify(jsonData, null, 2);
+        downloadFile(jsonContent, 'digitos_megasena.json', 'application/json');
     }
     
-    // Criar conteúdo HTML formatado
-    let htmlContent = `
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Análise de Dígitos da Mega-Sena</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-                background-color: #f0f8ff;
-                color: #333;
-            }
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: white;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                border-radius: 5px;
-            }
-            h1, h2, h3 {
-                color: #006400;
-                text-align: center;
-            }
-            .section {
-                margin-bottom: 30px;
-                padding: 15px;
-                background-color: #f9f9f9;
-                border-radius: 5px;
-                border: 1px solid #ddd;
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 15px 0;
-            }
-            th {
-                background-color: #000000;
-                color: white;
-                padding: 10px;
-                text-align: left;
-            }
-            td {
-                padding: 8px;
-                border: 1px solid #ddd;
-                text-align: left;
-            }
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-            .digit-box {
-                display: inline-block;
-                width: 40px;
-                height: 40px;
-                line-height: 40px;
-                text-align: center;
-                margin: 5px;
-                background-color: #4CAF50;
-                color: white;
-                border-radius: 50%;
-                font-weight: bold;
-            }
-            .digit-count {
-                font-size: 12px;
-                color: #666;
-                display: block;
-                text-align: center;
-            }
-            .footer {
-                text-align: center;
-                margin-top: 20px;
-                font-size: 12px;
-                color: #666;
-                padding: 10px;
-                border-top: 1px solid #ddd;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Análise de Dígitos da Mega-Sena</h1>
-            
-            <div class="section">
-                <h2>Estatísticas de Frequência dos Dígitos</h2>
-                <div style="display: flex; justify-content: center; flex-wrap: wrap; margin: 20px 0;">
-    `;
-    
-    // Adicionar estatísticas de dígitos
-    const sortedDigits = Object.entries(digitStats).sort((a, b) => b[1] - a[1]);
-    sortedDigits.forEach(([digit, count]) => {
-        htmlContent += `
-            <div class="digit-box">${digit}
-                <span class="digit-count">${count} vezes</span>
-            </div>
-        `;
-    });
-    
-    htmlContent += `
-                </div>
-                
-                <h3>Gráfico de Frequência</h3>
-                <div style="padding: 15px;">
-    `;
-    
-    // Adicionar gráfico de barras simples
-    const maxCount = Math.max(...Object.values(digitStats));
-    sortedDigits.forEach(([digit, count]) => {
-        const percentage = (count / maxCount) * 100;
-        htmlContent += `
-            <div style="margin: 10px 0; display: flex; align-items: center;">
-                <div style="width: 30px; text-align: center; font-weight: bold;">${digit}</div>
-                <div style="flex-grow: 1; margin: 0 10px;">
-                    <div style="background-color: #4CAF50; height: 24px; width: ${percentage}%;"></div>
-                </div>
-                <div style="width: 60px; text-align: right;">${count}</div>
-            </div>
-        `;
-    });
-    
-    htmlContent += `
-                </div>
-            </div>
-            
-            <div class="section">
-                <h2>Resumo por Quantidade de Dígitos</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Qtd. Dígitos</th>
-                            <th>Número de Sorteios</th>
-                            <th>Porcentagem</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-    `;
-    
-    // Adicionar resumo por quantidade de dígitos
-    const qtdKeys = Object.keys(combinationStats.porQuantidade)
-        .sort((a, b) => parseInt(a) - parseInt(b));
-    
-    qtdKeys.forEach(qtd => {
-        const count = combinationStats.porQuantidade[qtd].length;
-        const percentage = ((count / allResults.length) * 100).toFixed(2);
-        htmlContent += `
-            <tr>
-                <td>${qtd}</td>
-                <td>${count}</td>
-                <td>${percentage}%</td>
-            </tr>
-        `;
-    });
-    
-    htmlContent += `
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="section">
-                <h2>Combinações Mais Frequentes</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Combinação</th>
-                            <th>Qtd. Dígitos</th>
-                            <th>Frequência</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-    `;
-    
-    // Adicionar combinações mais frequentes
-    combinationStats.combinacoesFrequentes.slice(0, 10).forEach(combo => {
-        htmlContent += `
-            <tr>
-                <td>${combo.digitos.join(',')}</td>
-                <td>${combo.quantidade}</td>
-                <td>${combo.concursos.length}</td>
-            </tr>
-        `;
-    });
-    
-    htmlContent += `
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="section">
-                <h2>Resultados Detalhados</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Concurso</th>
-                            <th>Data</th>
-                            <th>Dezenas</th>
-                            <th>Dígitos</th>
-                            <th>Dígitos Ordenados</th>
-                            <th>Qtd. Dígitos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-    `;
-    
-    // Adicionar resultados detalhados
-    filteredResults.forEach(result => {
-        htmlContent += `
-            <tr>
-                <td>${result.concurso}</td>
-                <td>${result.data || ''}</td>
-                <td>${result.dezenas.join(' - ')}</td>
-                <td>${result.digitos_para_exibicao || result.digitos.join(' ')}</td>
-                <td>${result.digitos_ordenados.join(',')}</td>
-                <td>${result.contagem_digitos}</td>
-            </tr>
-        `;
-    });
-    
-    htmlContent += `
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="footer">
-                <p>Relatório gerado em: ${new Date().toLocaleString('pt-BR')}</p>
-                <p>Total de resultados analisados: ${allResults.length}</p>
-            </div>
-        </div>
-    </body>
-    </html>
-    `;
-    
-    // Criar o blob com tipo MIME para HTML
-    const blob = new Blob([htmlContent], {type: 'text/html;charset=utf-8'});
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = 'analise_digitos_megasena.html';
-    link.click();
-}    
     function downloadTXT() {
         if (allResults.length === 0) {
             alert('Carregue os resultados primeiro!');
@@ -1169,7 +1047,7 @@ function downloadJSON() {
             txtContent += `Quantidade: ${result.contagem_digitos}\n`;
         });
         
-        downloadFile(txtContent, 'analise_digitos_megasena.txt', 'text/plain');
+        downloadFile(txtContent, 'digitos_megasena.txt', 'text/plain');
     }
 	
 	// Função auxiliar para download de arquivos
@@ -1543,323 +1421,183 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados Dígitos Mega-Sena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Análise de Dígitos da Mega-Sena</h1>
+        
+        <div class="centralizado">
+            <p>Análise dos dígitos de todos os sorteios da Mega Sena</p>
+        </div>
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #FFFFFF;
-    color: #2E8B57;
-}
+        <div class="actions">
+            <button class="button" id="loadButton">Carregar Resultados</button>
+        </div>
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+        <div id="loadingMessage" class="loading" style="display: none;">Carregando resultados...</div>
+        <div id="completedMessage" class="completed" style="display: none;">Carregamento concluído!</div>
 
-h1, h2, h3 {
-    text-align: center;
-    color: #006400;
-}
+        <!-- Nova seção de filtros -->
+        <div id="filterContainer" class="filter-container">
+            <!-- Será preenchido via JavaScript -->
+        </div>
 
-.centralizado {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        <!-- Estatísticas de Dígitos -->
+        <div class="statistics-container">
+            <h2>Estatísticas de Dígitos</h2>
+            <div id="digitStats" class="digit-stats">
+                <div class="digit-frequency">
+                    <h3>Frequência de Dígitos</h3>
+                    <div id="digitFrequency"></div>
+                </div>
+                <div class="digit-charts">
+                    <h3>Gráfico de Frequência</h3>
+                    <div id="digitChart"></div>
+                </div>
+            </div>
+        </div>
 
-.actions {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
+        <!-- Nova seção de análise de combinações -->
+        <div id="combinationAnalysis" class="combination-analysis">
+            <!-- Será preenchido via JavaScript -->
+        </div>
 
-.button {
-    background-color: #32CD32;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+        <!-- Tabela de Resultados -->
+        <h2>Resultados Detalhados</h2>
+        <table id="megaSenaResults">
+            <thead>
+                <tr>
+                    <th>Concurso</th>
+                    <th>Data</th>
+                    <th>Dezenas</th>
+                    <th>Dígitos</th>
+                    <th>Dígitos Ordenados</th>
+                    <th>Qtd. Dígitos</th>
+                    <th>Copiar</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
-.button:hover {
-    background-color: #28a745;
-}
+        <!-- Botões de Download -->
+        <div class="download-buttons">
+            <button class="button" id="downloadCSV">Baixar CSV</button>
+            <button class="button" id="downloadJSON">Baixar JSON</button>
+            <button class="button" id="downloadTXT">Baixar TXT</button>
+        </div>
+    </div>
 
-.loading, .completed {
-    text-align: center;
-    margin: 10px 0;
-    font-weight: bold;
-}
+    <footer>Feito por: <i>Márcio Fernando Maia - Todos os direitos reservados - 2025</i></footer>
 
-.completed {
-    color: red;
-}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/highlight-max.js') }}"></script>
+</body>
+</html>
+import logging
+from app import app
+from dotenv import load_dotenv, find_dotenv
+import redis
+import os
 
-/* Estilos para a tabela */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #F0F8FF;
-}
+# Tenta encontrar e carregar o arquivo .env
+dotenv_path = find_dotenv()
+if not dotenv_path:
+    print("❌ ERRO: Arquivo .env não encontrado!")
+else:
+    print(f"✅ Arquivo .env encontrado: {dotenv_path}")
+    load_dotenv(dotenv_path)
 
-th, td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #4CAF50;
-    font-size: small;
-}
+# Pegando a URL do Redis
+REDIS_URL = os.getenv("REDIS_URL")
 
-th {
-    background-color: #4CAF50;
-    color: white;
-}
+print(f"🔍 REDIS_URL: {REDIS_URL}")  # Deve exibir a URL do Redis, não None!
 
-tr:nth-child(even) {
-    background-color: #F9F9F9;
-}
+if not REDIS_URL:
+    print("❌ ERRO: REDIS_URL não foi carregada! Verifique o .env ou defina manualmente.")
+    exit(1)  # Encerra o programa se a variável não foi carregada corretamente
 
-tr:nth-child(odd) {
-    background-color: #FFFFFF;
-}
-
-.copy-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.copy-button:hover {
-    background-color: #45a049;
-}
-
-/* EstatÃ­sticas de dÃ­gitos */
-.statistics-container {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #f0f8ff;
-    border-radius: 5px;
-    border: 1px solid #4CAF50;
-}
-
-.digit-stats {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.digit-frequency, .digit-charts {
-    flex: 1;
-    min-width: 300px;
-    margin: 10px;
-}
-
-.digit-box {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    margin: 5px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 50%;
-    font-weight: bold;
-}
-
-.digit-count {
-    font-size: 14px;
-    display: block;
-    color: #333;
-}
-
-.download-buttons {
-    margin: 20px 0;
-    text-align: center;
-}
-
-footer {
-    text-align: center;
-    margin-top: 30px;
-    padding: 10px;
-    font-size: 14px;
-    color: #666;
-}
-/* Estilos para filtros */
-.filter-container {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: #f0f8ff;
-    border-radius: 5px;
-    border: 1px solid #4CAF50;
-}
-
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-}
-
-.filter-item {
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
-}
-
-.filter-item label {
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-.filter-item select {
-    padding: 5px;
-    border: 1px solid #4CAF50;
-    border-radius: 4px;
-}
-
-.results-info {
-    margin: 10px 0;
-    font-style: italic;
-    color: #666;
-}
-
-/* Estilos para análise de combinações */
-.combination-analysis {
-    margin: 30px 0;
-}
-
-.combinations-table, .summary-table, .similares-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 15px 0;
-}
-
-.details-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.details-button:hover {
-    background-color: #45a049;
-}
-
-/* Estilos para modal */
-.modal {
-    display: block;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 800px;
-    border-radius: 5px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-button:hover {
-    color: black;
-}
-
-.diferencas .de {
-    color: #d9534f;
-}
-
-.diferencas .para {
-    color: #5bc0de;
-}
-
-.combo-info, .similares-info {
-    margin: 15px 0;
-}
-/* Estilos para destacar valores máximos */
-
-/* Transições suaves para todos os elementos */
-.digit-box, .digit-count, #digitChart div, 
-.combinations-table tr, .summary-table tr, .similares-table tr,
-.combinations-table td, .summary-table td, .similares-table td {
-    transition: all 0.3s ease;
-}
-
-/* Caixa de dígito destacada */
-.digit-box-highlighted {
-    background-color: #d9534f !important;
-    transform: scale(1.1);
-    box-shadow: 0 0 8px rgba(217, 83, 79, 0.7);
-    z-index: 2;
-    position: relative;
-}
-
-.digit-box-highlighted .digit-count {
-    font-weight: bold;
-    color: white !important;
-}
-
-/* Linha de tabela destacada */
-.row-highlighted {
-    background-color: rgba(217, 83, 79, 0.15) !important;
-}
-
-/* Célula destacada */
-.cell-highlighted {
-    font-weight: bold !important;
-    color: #d9534f !important;
-    font-size: 110% !important;
-}
-
-/* Barra de gráfico destacada */
-.bar-highlighted {
-    background-color: #d9534f !important;
-    height: 24px !important;
-}
-
-
-
-/* Responsividade melhorada */
-@media (max-width: 768px) {
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
+try:
+    # Criando a conexão com o Redis
+    redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=True)
     
-    .filter-item {
-        margin: 5px 0;
-        width: 100%;
-    }
-    
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-    }
-}
+    # Testando a conexão
+    redis_client.ping()
+    print("✅ Conexão com o Redis estabelecida com sucesso!")
+
+except Exception as e:
+    print(f"❌ Erro ao conectar ao Redis: {type(e).__name__} - {e}")
+
+
+# Configurar logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('app.log')
+    ]
+)
+
+logger = logging.getLogger(__name__)
+
+
+if __name__ == '__main__':
+    logger.info("Iniciando aplicação...")
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
+  
+"""
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+"""
+
+Flask==2.3.3
+Flask-Cors==4.0.0
+redis==5.0.1
+python-dotenv==1.0.0
+requests==2.31.0
+gunicorn==21.2.0
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# Environment
+.env
+venv/
+env/
+ENV/
+
+# Flask
+instance/
+.webassets-cache
+
+# Redis
+dump.rdb
+
+# Logs
+*.log
+
+# Outros
+.DS_Store
+
+#REDIS_HOST=redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com
+#REDIS_PORT=13833
+#REDIS_PASSWORD=B058xThhTvAbptQa0s25EAGk7A5u473O
+#REDIS_DB=0
+#FLASK_ENV=development
+#REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
+API_BASE_URL=https://loteriascaixa-api.herokuapp.com/api
+
+
+REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
