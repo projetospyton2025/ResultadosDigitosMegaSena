@@ -99,9 +99,36 @@ function adicionarBotaoInfo(elemento, textoExplicacao) {
             } else {
                 // Posicionar e mostrar este popup
                 const rect = botaoInfo.getBoundingClientRect();
-                popup.style.left = (rect.left - 200 + rect.width/2) + 'px'; // Centralizar
-                popup.style.top = (rect.bottom + 10) + 'px';
+                
+                // Verificar se é dispositivo móvel
+                const isMobile = window.innerWidth <= 768;
+                
+                if (isMobile) {
+                    // Em dispositivos móveis, posicionar no topo da tela
+                    popup.style.left = '50%'; // CSS vai centralizar
+                    popup.style.top = '80px';
+                } else {
+                    // Em desktop, posicionar próximo ao ícone
+                    popup.style.left = (rect.left - 200 + rect.width/2) + 'px'; // Centralizar
+                    popup.style.top = (rect.bottom + 10) + 'px';
+                }
+                
                 popup.style.display = 'block';
+                
+                // Garantir que o popup está dentro dos limites da janela
+                setTimeout(() => {
+                    const popupRect = popup.getBoundingClientRect();
+                    
+                    // Verificar se está saindo da tela à direita
+                    if (popupRect.right > window.innerWidth) {
+                        popup.style.left = (window.innerWidth - popupRect.width - 10) + 'px';
+                    }
+                    
+                    // Verificar se está saindo da tela embaixo
+                    if (popupRect.bottom > window.innerHeight) {
+                        popup.style.top = (rect.top - popupRect.height - 10) + 'px';
+                    }
+                }, 0);
                 
                 console.log("Popup exibido em:", popup.style.left, popup.style.top);
             }
@@ -117,6 +144,9 @@ function adicionarBotaoInfo(elemento, textoExplicacao) {
     
     return botaoInfo;
 }
+
+
+
 
 // Textos de explicação (mantidos os mesmos)
 function getExplicacaoGeral() {
@@ -264,3 +294,85 @@ function inicializarPopups() {
 
 // Iniciar quando o documento estiver pronto
 document.addEventListener('DOMContentLoaded', inicializarPopups);
+// Edite esta parte do código onde está o estilo do popup
+const style = document.createElement('style');
+style.textContent = `
+    .info-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        line-height: 18px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 5px;
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .explicacao-popup {
+        display: none;
+        position: fixed;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+        max-width: 400px;
+        min-width: 300px;
+        font-size: 14px;
+        line-height: 1.5;
+        overflow-y: auto;
+        max-height: 80vh; /* Limita a altura em telas pequenas */
+    }
+    
+    /* Regras responsivas para telas menores */
+    @media (max-width: 768px) {
+        .explicacao-popup {
+            left: 50% !important; /* Sobrescreve posicionamento inline */
+            transform: translateX(-50%);
+            width: 90%;
+            min-width: auto;
+            max-width: 90%;
+            max-height: 70vh;
+        }
+    }
+    
+    /* Regras específicas para dispositivos muito pequenos */
+    @media (max-width: 480px) {
+        .explicacao-popup {
+            width: 95%;
+            max-width: 95%;
+            max-height: 60vh;
+            padding: 10px;
+            font-size: 13px;
+            bottom: auto !important; /* Importante para sobrescrever style inline */
+            top: 50px !important;
+        }
+        
+        .info-icon {
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            font-size: 14px;
+        }
+    }
+    
+    .explicacao-popup h4 {
+        margin-top: 0;
+        color: #4CAF50;
+    }
+    
+    .explicacao-popup ul {
+        padding-left: 20px;
+    }
+    
+    .explicacao-popup p {
+        margin: 10px 0;
+    }
+`;
