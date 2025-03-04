@@ -14,6 +14,10 @@
     downloadCSVButton.addEventListener('click', downloadCSV);
     downloadJSONButton.addEventListener('click', downloadJSON);
     downloadTXTButton.addEventListener('click', downloadTXT);
+	
+	
+	// Chamar fetchDigitosResults automaticamente quando a página carregar
+    fetchDigitosResults();
     
     // Função para buscar os resultados - com tratamento de erros melhorado
     async function fetchDigitosResults() {
@@ -701,3 +705,174 @@
 	}
 	
 	});
+	
+	/**
+ * Script para destacar apenas os valores máximos em cada estatística
+ */
+
+
+
+// Função para destacar o dígito com maior frequência
+function highlightMaxDigit() {
+    const digitBoxes = document.querySelectorAll('.digit-box');
+    if (digitBoxes.length === 0) return;
+    
+    let maxValue = 0;
+    let maxElement = null;
+    
+    // Encontrar o valor máximo
+    digitBoxes.forEach(box => {
+        const valueElem = box.querySelector('.digit-count');
+        if (valueElem) {
+            const value = parseInt(valueElem.textContent.replace(/\D/g, ''));
+            if (!isNaN(value) && value > maxValue) {
+                maxValue = value;
+                maxElement = box;
+            }
+        }
+    });
+    
+    // Aplicar destaque
+    if (maxElement) {
+        console.log("Destacando dígito com valor máximo:", maxValue);
+        maxElement.style.backgroundColor = '#d9534f'; // Vermelho
+        maxElement.style.transform = 'scale(1.1)';
+        maxElement.style.boxShadow = '0 0 8px rgba(217, 83, 79, 0.7)';
+        
+        const valueElem = maxElement.querySelector('.digit-count');
+        if (valueElem) {
+            valueElem.style.fontWeight = 'bold';
+            valueElem.style.fontSize = '110%';
+            valueElem.style.color = '#fff';
+        }
+    }
+}
+
+// Função para destacar o valor máximo no gráfico de frequência
+function highlightMaxInFrequencyChart() {
+    const chartRows = document.querySelectorAll('#digitChart > div');
+    if (chartRows.length === 0) return;
+    
+    let maxValue = 0;
+    let maxRow = null;
+    
+    // Encontrar a linha com valor máximo
+    chartRows.forEach(row => {
+        const valueElem = row.querySelector('div > div:last-child');
+        if (valueElem) {
+            const value = parseInt(valueElem.textContent.replace(/\D/g, ''));
+            if (!isNaN(value) && value > maxValue) {
+                maxValue = value;
+                maxRow = row;
+            }
+        }
+    });
+    
+    // Aplicar destaque
+    if (maxRow) {
+        console.log("Destacando valor máximo no gráfico:", maxValue);
+        
+        // Destacar o valor
+        const valueElem = maxRow.querySelector('div > div:last-child');
+        if (valueElem) {
+            valueElem.style.fontWeight = 'bold';
+            valueElem.style.color = '#d9534f';
+            valueElem.style.fontSize = '110%';
+        }
+        
+        // Destacar a barra
+        const barElem = maxRow.querySelector('div > div:nth-child(2) > div');
+        if (barElem) {
+            barElem.style.backgroundColor = '#d9534f';
+            barElem.style.height = '24px'; // Ligeiramente maior
+        }
+        
+        // Destacar o fundo da linha inteira
+        maxRow.style.backgroundColor = 'rgba(217, 83, 79, 0.1)';
+        maxRow.style.borderRadius = '4px';
+        maxRow.style.padding = '2px 0';
+    }
+}
+
+// Função para destacar o valor máximo em uma tabela
+function highlightMaxInTable(tableSelector, columnIndex) {
+    const table = document.querySelector(tableSelector);
+    if (!table) {
+        console.log(`Tabela não encontrada: ${tableSelector}`);
+        return;
+    }
+    
+    const rows = table.querySelectorAll('tbody tr');
+    if (rows.length === 0) {
+        console.log(`Nenhuma linha encontrada na tabela: ${tableSelector}`);
+        return;
+    }
+    
+    let maxValue = 0;
+    let maxRow = null;
+    
+    // Encontrar a linha com valor máximo
+    rows.forEach(row => {
+        if (row.cells.length > columnIndex) {
+            const cell = row.cells[columnIndex];
+            const value = parseInt(cell.textContent.replace(/\D/g, ''));
+            if (!isNaN(value) && value > maxValue) {
+                maxValue = value;
+                maxRow = row;
+            }
+        }
+    });
+    
+    // Aplicar destaque
+    if (maxRow) {
+        console.log(`Destacando valor máximo (${maxValue}) na tabela ${tableSelector}`);
+        
+        // Destacar a linha inteira
+        maxRow.style.backgroundColor = 'rgba(217, 83, 79, 0.15)';
+        
+        // Destacar a célula do valor
+        const valueCell = maxRow.cells[columnIndex];
+        if (valueCell) {
+            valueCell.style.fontWeight = 'bold';
+            valueCell.style.color = '#d9534f';
+            valueCell.style.fontSize = '110%';
+        }
+    }
+}
+
+// Adicionar a função ao carregamento da página e ao clicar no botão de carregar
+document.addEventListener('DOMContentLoaded', function() {
+    // Executar após um pequeno atraso para garantir que os elementos estejam carregados
+    setTimeout(highlightMaxValues, 500);
+    
+    // Adicionar ao botão de carregar
+    const loadButton = document.getElementById('loadButton');
+    if (loadButton) {
+        const originalHandler = loadButton.onclick;
+        loadButton.onclick = function(e) {
+            if (typeof originalHandler === 'function') {
+                originalHandler.call(this, e);
+            }
+            
+            // Executar nosso código após um pequeno atraso para os dados serem processados
+            setTimeout(highlightMaxValues, 1000);
+        };
+    }
+});
+
+// Adicionar CSS necessário para os destaques
+function addHighlightStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Estilos para transição suave de destaques */
+        .digit-box, .digit-count, #digitChart div, 
+        .combinations-table tr, .summary-table tr, .similares-table tr,
+        .combinations-table td, .summary-table td, .similares-table td {
+            transition: all 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Adicionar estilos
+addHighlightStyles();

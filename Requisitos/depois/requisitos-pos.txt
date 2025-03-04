@@ -1,53 +1,357 @@
+NÃO ALTERE NADA NÃO EXCLUA NADA NÃO OMITE NADA NO CÓDIGO 
+APENAS FAÇA O QUE EU PEDI EM RELAÇÃO AO CARREGAMENTO AUTOMATICO
 
- 
- 
- 
-Diretório: J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena
+quero que a app inicie sem a interversão do usuario
+ou seja que ela carregue os resultados assim que for aberta..
+ou em outras palavras não quero que o usuário precise clicar neste botão
+<button class="button" id="loadButton">Carregar Resultados</button>
+
+
+
+
+
+(venv) PS J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena> dir
+
+
+    Diretório: J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena
 
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 d-----        27/02/2025     04:47                Requisitos
 d-----        27/02/2025     05:43                static
-d-----        27/02/2025     07:43                templates
+d-----        03/03/2025     10:14                templates
 d-----        27/02/2025     06:14                app
 d-----        27/02/2025     05:43                venv
 ------        27/02/2025     04:46           1096 LICENSE
 ------        27/02/2025     04:46             27 README.md
 ------        27/02/2025     05:43            108 requirements.txt
 ------        27/02/2025     05:43            221 .gitignore
-------        27/02/2025     08:04            633 run.py
-------        27/02/2025     05:43            361 .env
+------        28/02/2025     06:12           1625 run.py
+------        28/02/2025     06:18            497 .env
 ------        27/02/2025     05:59           7788 run.ps1
 ------        27/02/2025     05:59              0 app.log
 
-import os
-import logging
-from app import app
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+    color: #2E8B57;
+}
 
-# Configurar logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler('app.log')
-    ]
-)
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-logger = logging.getLogger(__name__)
+h1, h2, h3 {
+    text-align: center;
+    color: #006400;
+}
+
+.centralizado {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: #32CD32;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #28a745;
+}
+
+.loading, .completed {
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.completed {
+    color: red;
+}
+
+/* Estilos para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #F0F8FF;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #4CAF50;
+    font-size: small;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #F9F9F9;
+}
+
+tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+.copy-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.copy-button:hover {
+    background-color: #45a049;
+}
+
+/* EstatÃ­sticas de dÃ­gitos */
+.statistics-container {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 5px;
+    border: 1px solid #4CAF50;
+}
+
+.digit-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.digit-frequency, .digit-charts {
+    flex: 1;
+    min-width: 300px;
+    margin: 10px;
+}
+
+.digit-box {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.digit-count {
+    font-size: 14px;
+    display: block;
+    color: #333;
+}
+
+.download-buttons {
+    margin: 20px 0;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 14px;
+    color: #666;
+}
+/* Estilos para filtros */
+.filter-container {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f0f8ff;
+    border-radius: 5px;
+    border: 1px solid #4CAF50;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.filter-item label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.filter-item select {
+    padding: 5px;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+}
+
+.results-info {
+    margin: 10px 0;
+    font-style: italic;
+    color: #666;
+}
+
+/* Estilos para análise de combinações */
+.combination-analysis {
+    margin: 30px 0;
+}
+
+.combinations-table, .summary-table, .similares-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.details-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.details-button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para modal */
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 5px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: black;
+}
+
+.diferencas .de {
+    color: #d9534f;
+}
+
+.diferencas .para {
+    color: #5bc0de;
+}
+
+.combo-info, .similares-info {
+    margin: 15px 0;
+}
+/* Estilos para destacar valores máximos */
+
+/* Transições suaves para todos os elementos */
+.digit-box, .digit-count, #digitChart div, 
+.combinations-table tr, .summary-table tr, .similares-table tr,
+.combinations-table td, .summary-table td, .similares-table td {
+    transition: all 0.3s ease;
+}
+
+/* Caixa de dígito destacada */
+.digit-box-highlighted {
+    background-color: #d9534f !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(217, 83, 79, 0.7);
+    z-index: 2;
+    position: relative;
+}
+
+.digit-box-highlighted .digit-count {
+    font-weight: bold;
+    color: white !important;
+}
+
+/* Linha de tabela destacada */
+.row-highlighted {
+    background-color: rgba(217, 83, 79, 0.15) !important;
+}
+
+/* Célula destacada */
+.cell-highlighted {
+    font-weight: bold !important;
+    color: #d9534f !important;
+    font-size: 110% !important;
+}
+
+/* Barra de gráfico destacada */
+.bar-highlighted {
+    background-color: #d9534f !important;
+    height: 24px !important;
+}
 
 
-if __name__ == '__main__':
-    logger.info("Iniciando aplicação...")
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
-  
-"""
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
-"""
+
+/* Responsividade melhorada */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-item {
+        margin: 5px 0;
+        width: 100%;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const loadButton = document.getElementById('loadButton');
@@ -753,7 +1057,366 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	});
 	
-	<!DOCTYPE html>
+	/**
+ * Script para destacar apenas os valores máximos em cada estatística
+ */
+
+
+
+// Função para destacar o dígito com maior frequência
+function highlightMaxDigit() {
+    const digitBoxes = document.querySelectorAll('.digit-box');
+    if (digitBoxes.length === 0) return;
+    
+    let maxValue = 0;
+    let maxElement = null;
+    
+    // Encontrar o valor máximo
+    digitBoxes.forEach(box => {
+        const valueElem = box.querySelector('.digit-count');
+        if (valueElem) {
+            const value = parseInt(valueElem.textContent.replace(/\D/g, ''));
+            if (!isNaN(value) && value > maxValue) {
+                maxValue = value;
+                maxElement = box;
+            }
+        }
+    });
+    
+    // Aplicar destaque
+    if (maxElement) {
+        console.log("Destacando dígito com valor máximo:", maxValue);
+        maxElement.style.backgroundColor = '#d9534f'; // Vermelho
+        maxElement.style.transform = 'scale(1.1)';
+        maxElement.style.boxShadow = '0 0 8px rgba(217, 83, 79, 0.7)';
+        
+        const valueElem = maxElement.querySelector('.digit-count');
+        if (valueElem) {
+            valueElem.style.fontWeight = 'bold';
+            valueElem.style.fontSize = '110%';
+            valueElem.style.color = '#fff';
+        }
+    }
+}
+
+// Função para destacar o valor máximo no gráfico de frequência
+function highlightMaxInFrequencyChart() {
+    const chartRows = document.querySelectorAll('#digitChart > div');
+    if (chartRows.length === 0) return;
+    
+    let maxValue = 0;
+    let maxRow = null;
+    
+    // Encontrar a linha com valor máximo
+    chartRows.forEach(row => {
+        const valueElem = row.querySelector('div > div:last-child');
+        if (valueElem) {
+            const value = parseInt(valueElem.textContent.replace(/\D/g, ''));
+            if (!isNaN(value) && value > maxValue) {
+                maxValue = value;
+                maxRow = row;
+            }
+        }
+    });
+    
+    // Aplicar destaque
+    if (maxRow) {
+        console.log("Destacando valor máximo no gráfico:", maxValue);
+        
+        // Destacar o valor
+        const valueElem = maxRow.querySelector('div > div:last-child');
+        if (valueElem) {
+            valueElem.style.fontWeight = 'bold';
+            valueElem.style.color = '#d9534f';
+            valueElem.style.fontSize = '110%';
+        }
+        
+        // Destacar a barra
+        const barElem = maxRow.querySelector('div > div:nth-child(2) > div');
+        if (barElem) {
+            barElem.style.backgroundColor = '#d9534f';
+            barElem.style.height = '24px'; // Ligeiramente maior
+        }
+        
+        // Destacar o fundo da linha inteira
+        maxRow.style.backgroundColor = 'rgba(217, 83, 79, 0.1)';
+        maxRow.style.borderRadius = '4px';
+        maxRow.style.padding = '2px 0';
+    }
+}
+
+// Função para destacar o valor máximo em uma tabela
+function highlightMaxInTable(tableSelector, columnIndex) {
+    const table = document.querySelector(tableSelector);
+    if (!table) {
+        console.log(`Tabela não encontrada: ${tableSelector}`);
+        return;
+    }
+    
+    const rows = table.querySelectorAll('tbody tr');
+    if (rows.length === 0) {
+        console.log(`Nenhuma linha encontrada na tabela: ${tableSelector}`);
+        return;
+    }
+    
+    let maxValue = 0;
+    let maxRow = null;
+    
+    // Encontrar a linha com valor máximo
+    rows.forEach(row => {
+        if (row.cells.length > columnIndex) {
+            const cell = row.cells[columnIndex];
+            const value = parseInt(cell.textContent.replace(/\D/g, ''));
+            if (!isNaN(value) && value > maxValue) {
+                maxValue = value;
+                maxRow = row;
+            }
+        }
+    });
+    
+    // Aplicar destaque
+    if (maxRow) {
+        console.log(`Destacando valor máximo (${maxValue}) na tabela ${tableSelector}`);
+        
+        // Destacar a linha inteira
+        maxRow.style.backgroundColor = 'rgba(217, 83, 79, 0.15)';
+        
+        // Destacar a célula do valor
+        const valueCell = maxRow.cells[columnIndex];
+        if (valueCell) {
+            valueCell.style.fontWeight = 'bold';
+            valueCell.style.color = '#d9534f';
+            valueCell.style.fontSize = '110%';
+        }
+    }
+}
+
+// Adicionar a função ao carregamento da página e ao clicar no botão de carregar
+document.addEventListener('DOMContentLoaded', function() {
+    // Executar após um pequeno atraso para garantir que os elementos estejam carregados
+    setTimeout(highlightMaxValues, 500);
+    
+    // Adicionar ao botão de carregar
+    const loadButton = document.getElementById('loadButton');
+    if (loadButton) {
+        const originalHandler = loadButton.onclick;
+        loadButton.onclick = function(e) {
+            if (typeof originalHandler === 'function') {
+                originalHandler.call(this, e);
+            }
+            
+            // Executar nosso código após um pequeno atraso para os dados serem processados
+            setTimeout(highlightMaxValues, 1000);
+        };
+    }
+});
+
+// Adicionar CSS necessário para os destaques
+function addHighlightStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Estilos para transição suave de destaques */
+        .digit-box, .digit-count, #digitChart div, 
+        .combinations-table tr, .summary-table tr, .similares-table tr,
+        .combinations-table td, .summary-table td, .similares-table td {
+            transition: all 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Adicionar estilos
+addHighlightStyles();
+
+// Script para destacar valores máximos nas estatísticas
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Script de destaque de máximos inicializado");
+    
+    // Função para encontrar o valor máximo nas tabelas e destacá-lo
+    function highlightMaxValuesAfterLoading() {
+        console.log("Iniciando função de destaque de valores máximos");
+        
+        // ===== 1. Destacar frequência de dígitos =====
+        try {
+            // Encontrar todas as caixas de dígitos
+            const digitBoxes = document.querySelectorAll('.digit-box');
+            console.log(`Encontradas ${digitBoxes.length} caixas de dígitos`);
+            
+            if (digitBoxes.length > 0) {
+                // Encontrar o maior valor
+                let maxValue = 0;
+                let maxBox = null;
+                
+                digitBoxes.forEach(box => {
+                    const countSpan = box.querySelector('.digit-count');
+                    if (countSpan) {
+                        const value = parseInt(countSpan.textContent);
+                        if (!isNaN(value) && value > maxValue) {
+                            maxValue = value;
+                            maxBox = box;
+                        }
+                    }
+                });
+                
+                // Aplicar destaque
+                if (maxBox) {
+                    console.log(`Valor máximo encontrado: ${maxValue}`);
+                    maxBox.style.backgroundColor = '#d9534f';
+                    maxBox.style.transform = 'scale(1.1)';
+                    maxBox.style.boxShadow = '0 0 8px rgba(217, 83, 79, 0.7)';
+                    
+                    const countSpan = maxBox.querySelector('.digit-count');
+                    if (countSpan) {
+                        countSpan.style.fontWeight = 'bold';
+                        countSpan.style.color = '#fff';
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Erro ao destacar frequência de dígitos:", error);
+        }
+        
+        // ===== 2. Destacar gráfico de frequência =====
+        try {
+            const chartRows = document.querySelectorAll('#digitChart > div');
+            console.log(`Encontradas ${chartRows.length} linhas no gráfico`);
+            
+            if (chartRows.length > 0) {
+                let maxValue = 0;
+                let maxRow = null;
+                
+                chartRows.forEach(row => {
+                    const valueDiv = row.querySelector('div > div:last-child');
+                    if (valueDiv) {
+                        const value = parseInt(valueDiv.textContent);
+                        if (!isNaN(value) && value > maxValue) {
+                            maxValue = value;
+                            maxRow = row;
+                        }
+                    }
+                });
+                
+                if (maxRow) {
+                    console.log(`Valor máximo no gráfico: ${maxValue}`);
+                    maxRow.style.backgroundColor = 'rgba(217, 83, 79, 0.15)';
+                    
+                    // Destacar a barra
+                    const bar = maxRow.querySelector('div > div > div');
+                    if (bar) {
+                        bar.style.backgroundColor = '#d9534f';
+                    }
+                    
+                    // Destacar o valor
+                    const valueDiv = maxRow.querySelector('div > div:last-child');
+                    if (valueDiv) {
+                        valueDiv.style.color = '#d9534f';
+                        valueDiv.style.fontWeight = 'bold';
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Erro ao destacar gráfico de frequência:", error);
+        }
+        
+        // ===== 3. Destacar tabelas =====
+        try {
+            // Combinações mais frequentes - coluna de frequência é a 3ª (índice 2)
+            highlightMaxValueInTable('table.combinations-table', 2);
+            
+            // Resumo por quantidade de dígitos - coluna de número de sorteios é a 2ª (índice 1)
+            highlightMaxValueInTable('table.summary-table', 1);
+            
+            // Modal de combinações similares - coluna de frequência é a 4ª (índice 3)
+            const modalTable = document.querySelector('.similares-table');
+            if (modalTable) {
+                highlightMaxValueInTable('.similares-table', 3);
+            }
+        } catch (error) {
+            console.error("Erro ao destacar tabelas:", error);
+        }
+    }
+    
+    // Função auxiliar para destacar o valor máximo em uma tabela
+    function highlightMaxValueInTable(selector, columnIndex) {
+        const table = document.querySelector(selector);
+        if (!table) {
+            console.log(`Tabela não encontrada: ${selector}`);
+            return;
+        }
+        
+        const rows = table.querySelectorAll('tbody tr');
+        if (rows.length === 0) {
+            console.log(`Nenhuma linha encontrada na tabela ${selector}`);
+            return;
+        }
+        
+        console.log(`Analisando ${rows.length} linhas na tabela ${selector}`);
+        
+        let maxValue = 0;
+        let maxRow = null;
+        
+        rows.forEach(row => {
+            if (row.cells.length <= columnIndex) return;
+            
+            const cell = row.cells[columnIndex];
+            const value = parseInt(cell.textContent.replace(/\D/g, ''));
+            
+            if (!isNaN(value) && value > maxValue) {
+                maxValue = value;
+                maxRow = row;
+            }
+        });
+        
+        if (maxRow) {
+            console.log(`Valor máximo na tabela ${selector}: ${maxValue}`);
+            
+            // Destacar a linha inteira
+            maxRow.style.backgroundColor = 'rgba(217, 83, 79, 0.15)';
+            
+            // Destacar a célula específica
+            const cell = maxRow.cells[columnIndex];
+            cell.style.fontWeight = 'bold';
+            cell.style.color = '#d9534f';
+            cell.style.fontSize = '110%';
+        }
+    }
+    
+    // Configurar o evento do botão de carregamento
+    function setupHighlightEvents() {
+        const loadButton = document.getElementById('loadButton');
+        if (loadButton) {
+            console.log("Botão de carregamento encontrado");
+            
+            // Adicionar o novo handler com nosso código
+            loadButton.addEventListener('click', function() {
+                console.log("Botão de carregar clicado, agendando destaque");
+                // Aguardar o carregamento dos dados (2 segundos deve ser suficiente)
+                setTimeout(highlightMaxValuesAfterLoading, 2000);
+            });
+            
+            // Verificar se já existem dados carregados
+            setTimeout(highlightMaxValuesAfterLoading, 1000);
+        } else {
+            console.warn("Botão de carregamento não encontrado!");
+            // Tentar novamente em 1 segundo
+            setTimeout(setupHighlightEvents, 1000);
+        }
+    }
+    
+    // Iniciar a configuração
+    setupHighlightEvents();
+    
+    // Adicionar CSS necessário
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Estilo para elementos destacados */
+        .highlighted-max {
+            transition: all 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
+});
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -830,293 +1493,74 @@ document.addEventListener('DOMContentLoaded', function() {
     <footer>Feito por: <i>Márcio Fernando Maia - Todos os direitos reservados - 2025</i></footer>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/highlight-max.js') }}"></script>
 </body>
 </html>
+import logging
+from app import app
+from dotenv import load_dotenv, find_dotenv
+import redis
+import os
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #FFFFFF;
-    color: #2E8B57;
-}
+# Tenta encontrar e carregar o arquivo .env
+dotenv_path = find_dotenv()
+if not dotenv_path:
+    print("❌ ERRO: Arquivo .env não encontrado!")
+else:
+    print(f"✅ Arquivo .env encontrado: {dotenv_path}")
+    load_dotenv(dotenv_path)
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+# Pegando a URL do Redis
+REDIS_URL = os.getenv("REDIS_URL")
 
-h1, h2, h3 {
-    text-align: center;
-    color: #006400;
-}
+print(f"🔍 REDIS_URL: {REDIS_URL}")  # Deve exibir a URL do Redis, não None!
 
-.centralizado {
-    text-align: center;
-    margin-bottom: 20px;
-}
+if not REDIS_URL:
+    print("❌ ERRO: REDIS_URL não foi carregada! Verifique o .env ou defina manualmente.")
+    exit(1)  # Encerra o programa se a variável não foi carregada corretamente
 
-.actions {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.button {
-    background-color: #32CD32;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.button:hover {
-    background-color: #28a745;
-}
-
-.loading, .completed {
-    text-align: center;
-    margin: 10px 0;
-    font-weight: bold;
-}
-
-.completed {
-    color: red;
-}
-
-/* Estilos para a tabela */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #F0F8FF;
-}
-
-th, td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #4CAF50;
-    font-size: small;
-}
-
-th {
-    background-color: #4CAF50;
-    color: white;
-}
-
-tr:nth-child(even) {
-    background-color: #F9F9F9;
-}
-
-tr:nth-child(odd) {
-    background-color: #FFFFFF;
-}
-
-.copy-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.copy-button:hover {
-    background-color: #45a049;
-}
-
-/* EstatÃ­sticas de dÃ­gitos */
-.statistics-container {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #f0f8ff;
-    border-radius: 5px;
-    border: 1px solid #4CAF50;
-}
-
-.digit-stats {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.digit-frequency, .digit-charts {
-    flex: 1;
-    min-width: 300px;
-    margin: 10px;
-}
-
-.digit-box {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    margin: 5px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 50%;
-    font-weight: bold;
-}
-
-.digit-count {
-    font-size: 14px;
-    display: block;
-    color: #333;
-}
-
-.download-buttons {
-    margin: 20px 0;
-    text-align: center;
-}
-
-footer {
-    text-align: center;
-    margin-top: 30px;
-    padding: 10px;
-    font-size: 14px;
-    color: #666;
-}
-/* Estilos para filtros */
-.filter-container {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: #f0f8ff;
-    border-radius: 5px;
-    border: 1px solid #4CAF50;
-}
-
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-}
-
-.filter-item {
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
-}
-
-.filter-item label {
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-.filter-item select {
-    padding: 5px;
-    border: 1px solid #4CAF50;
-    border-radius: 4px;
-}
-
-.results-info {
-    margin: 10px 0;
-    font-style: italic;
-    color: #666;
-}
-
-/* Estilos para análise de combinações */
-.combination-analysis {
-    margin: 30px 0;
-}
-
-.combinations-table, .summary-table, .similares-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 15px 0;
-}
-
-.details-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.details-button:hover {
-    background-color: #45a049;
-}
-
-/* Estilos para modal */
-.modal {
-    display: block;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 800px;
-    border-radius: 5px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-button:hover {
-    color: black;
-}
-
-.diferencas .de {
-    color: #d9534f;
-}
-
-.diferencas .para {
-    color: #5bc0de;
-}
-
-.combo-info, .similares-info {
-    margin: 15px 0;
-}
-
-/* Responsividade melhorada */
-@media (max-width: 768px) {
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
+try:
+    # Criando a conexão com o Redis
+    redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=True)
     
-    .filter-item {
-        margin: 5px 0;
-        width: 100%;
-    }
-    
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-    }
-}
+    # Testando a conexão
+    redis_client.ping()
+    print("✅ Conexão com o Redis estabelecida com sucesso!")
+
+except Exception as e:
+    print(f"❌ Erro ao conectar ao Redis: {type(e).__name__} - {e}")
+
+
+# Configurar logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('app.log')
+    ]
+)
+
+logger = logging.getLogger(__name__)
+
+
+if __name__ == '__main__':
+    logger.info("Iniciando aplicação...")
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
+  
+"""
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+"""
+
 Flask==2.3.3
 Flask-Cors==4.0.0
 redis==5.0.1
 python-dotenv==1.0.0
 requests==2.31.0
 gunicorn==21.2.0
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -1142,13 +1586,13 @@ dump.rdb
 # Outros
 .DS_Store
 
-
-REDIS_HOST=redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com
-REDIS_PORT=13833
-REDIS_PASSWORD=B058xThhTvAbptQa0s25EAGk7A5u473O
-REDIS_DB=0
-FLASK_ENV=development
-REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
+#REDIS_HOST=redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com
+#REDIS_PORT=13833
+#REDIS_PASSWORD=B058xThhTvAbptQa0s25EAGk7A5u473O
+#REDIS_DB=0
+#FLASK_ENV=development
+#REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
 API_BASE_URL=https://loteriascaixa-api.herokuapp.com/api
 
 
+REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833

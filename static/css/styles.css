@@ -257,6 +257,48 @@ footer {
 .combo-info, .similares-info {
     margin: 15px 0;
 }
+/* Estilos para destacar valores máximos */
+
+/* Transições suaves para todos os elementos */
+.digit-box, .digit-count, #digitChart div, 
+.combinations-table tr, .summary-table tr, .similares-table tr,
+.combinations-table td, .summary-table td, .similares-table td {
+    transition: all 0.3s ease;
+}
+
+/* Caixa de dígito destacada */
+.digit-box-highlighted {
+    background-color: #d9534f !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(217, 83, 79, 0.7);
+    z-index: 2;
+    position: relative;
+}
+
+.digit-box-highlighted .digit-count {
+    font-weight: bold;
+    color: white !important;
+}
+
+/* Linha de tabela destacada */
+.row-highlighted {
+    background-color: rgba(217, 83, 79, 0.15) !important;
+}
+
+/* Célula destacada */
+.cell-highlighted {
+    font-weight: bold !important;
+    color: #d9534f !important;
+    font-size: 110% !important;
+}
+
+/* Barra de gráfico destacada */
+.bar-highlighted {
+    background-color: #d9534f !important;
+    height: 24px !important;
+}
+
+
 
 /* Responsividade melhorada */
 @media (max-width: 768px) {
