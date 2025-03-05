@@ -65,6 +65,11 @@
             
             if (data.resultados && Array.isArray(data.resultados)) {
                 allResults = data.resultados;
+				// Compartilhar resultados no escopo global
+				window.allResults = allResults;
+				window.digitStats = digitStats;
+				
+				
                 filteredResults = [...allResults]; // Inicialmente, todos os resultados
                 digitStats = data.frequencia_digitos;
                 

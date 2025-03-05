@@ -297,7 +297,13 @@ footer {
     background-color: #d9534f !important;
     height: 24px !important;
 }
-
+#resumo{
+    font-family: 'Courier New', Courier, monospace;
+    color: #333;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: justify;
+}
 
 
 /* Responsividade melhorada */
