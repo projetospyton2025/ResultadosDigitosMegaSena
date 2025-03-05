@@ -12,28 +12,44 @@ MANTENHA AS ESTATÍTICAS ATUAIS QUE SÃO Combinações Mais Frequentes E Resumo 
 APENAS IMPLEMENTE O QUE EU SOLICITAR, TRAGA AS INFORMAÇÕES EM PORTUGUES E OS MINIMOS DETALHES DE COMO IMPLANTAR
 
 
+AGORA EU QUERO O MÁXIMO DE ESTATISTICA... VEJA AS FIGURAS
+1.JPG, 2.JPG, 3.JPG e 4.jpg certamente vc vai entender o que eu quero..
+
+na hora de criar a frequencia...ou seja o valores 86 - 84 = 2 116 - 86 = 30 146 - 116 = 30
+não precisa aparecer apenas aparecendo o 2,30, 30 está ótimo isso para todas as ocorrencias.. 
+
+observe que vc tras a estatistica de apenas das 10 primeiras combinações.. (faça o que eu pedi para todas.. como vc vai trazer a infroamção não sei. mas traga de algum jeito.. arquivo excel.. html sei lá
+a ia me esquecendo deixe em evidÇencia sempre os maior valor de cada estatistica.. ok.
+pois bem eu preciso dos detalhes dela como mostra na figura 4.jpg que fiz no excel.
+
+no final preciso da media entre eles... se posivel a porcentagem tbm.. enfim
+
+quero rastrear principalmente a frequencas entras os sequencias dedigitos... ok.. pode faer isto por mim???
+
+//////////////////////////////////////////////////////////////////////////
+
+(venv) PS J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena> dir
 
 
-
-Diretório: J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena
+    Diretório: J:\Meu Drive\ProjetosPython\Loterias\Loterias-ResultadosDigitos\ResultadosDigitosMegaSena
 
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 d-----        27/02/2025     04:47                Requisitos
-d-----        05/03/2025     05:23                .git
+d-----        27/02/2025     04:46                .git
 d-----        27/02/2025     05:43                venv
 d-----        27/02/2025     05:43                app
-d-----        04/03/2025     13:48                templates
+d-----        27/02/2025     05:43                templates
 d-----        27/02/2025     05:43                static
-------        04/03/2025     16:24             27 README.md
-------        04/03/2025     16:24           1096 LICENSE
-------        04/03/2025     16:24            108 requirements.txt
-------        04/03/2025     16:24           1625 run.py
-------        04/03/2025     16:24            221 .gitignore
-------        04/03/2025     16:24            497 .env
-------        04/03/2025     16:24           7788 run.ps1
-------        04/03/2025     16:24              0 app.log
+------        27/02/2025     04:46             27 README.md
+------        27/02/2025     04:46           1096 LICENSE
+------        27/02/2025     05:43            108 requirements.txt
+------        28/02/2025     06:12           1625 run.py
+------        27/02/2025     05:43            221 .gitignore
+------        28/02/2025     06:18            497 .env
+------        27/02/2025     05:59           7788 run.ps1
+------        27/02/2025     05:59              0 app.log
 
 
 import logging
@@ -94,14 +110,59 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
 """
+
+Flask==2.3.3
+Flask-Cors==4.0.0
+redis==5.0.1
+python-dotenv==1.0.0
+requests==2.31.0
+gunicorn==21.2.0
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# Environment
+.env
+venv/
+env/
+ENV/
+
+# Flask
+instance/
+.webassets-cache
+
+# Redis
+dump.rdb
+
+# Logs
+*.log
+
+# Outros
+.DS_Store
+
+
+#REDIS_HOST=redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com
+#REDIS_PORT=13833
+#REDIS_PASSWORD=B058xThhTvAbptQa0s25EAGk7A5u473O
+#REDIS_DB=0
+#FLASK_ENV=development
+#REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
+API_BASE_URL=https://loteriascaixa-api.herokuapp.com/api
+
+
+REDIS_URL=redis://default:B058xThhTvAbptQa0s25EAGk7A5u473O@redis-13833.c336.samerica-east1-1.gce.redns.redis-cloud.com:13833
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dígitos Mega-Sena</title>
+    <title>Resultados Dígitos Mega-Sena</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/popup-style.css') }}">
 </head>
 <body>
     <div class="container">
@@ -173,10 +234,9 @@ if __name__ == '__main__':
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/highlight-max.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/frequency-analysis.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/popup-explicacao.js') }}"></script>
 </body>
 </html>
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const loadButton = document.getElementById('loadButton');
@@ -203,16 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
     async function fetchDigitosResults() {
 		// No início da função fetchDigitosResults
 		console.log("Função fetchDigitosResults iniciada");
-		
-		const loadButton = document.getElementById('loadButton');
-
-		// Desabilitar o botão enquanto carrega
-		if (loadButton) {
-			loadButton.disabled = true;
-			loadButton.style.opacity = '0.6';
-			loadButton.style.cursor = 'not-allowed';
-		}
-		
         const loadingMessage = document.getElementById('loadingMessage');
         const completedMessage = document.getElementById('completedMessage');
         const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
@@ -266,13 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             loadingMessage.style.display = 'none';
             completedMessage.style.display = 'block';
-			
-			// Reabilitar o botão quando o carregamento terminar
-			if (loadButton) {
-				loadButton.disabled = false;
-				loadButton.style.opacity = '1';
-				loadButton.style.cursor = 'pointer';
-			}
         }
     }
     
@@ -1333,6 +1376,195 @@ function addHighlightStyles() {
 // Adicionar estilos
 addHighlightStyles();
 
+// Script para destacar valores máximos nas estatísticas
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Script de destaque de máximos inicializado");
+    
+    // Função para encontrar o valor máximo nas tabelas e destacá-lo
+    function highlightMaxValuesAfterLoading() {
+        console.log("Iniciando função de destaque de valores máximos");
+        
+        // ===== 1. Destacar frequência de dígitos =====
+        try {
+            // Encontrar todas as caixas de dígitos
+            const digitBoxes = document.querySelectorAll('.digit-box');
+            console.log(`Encontradas ${digitBoxes.length} caixas de dígitos`);
+            
+            if (digitBoxes.length > 0) {
+                // Encontrar o maior valor
+                let maxValue = 0;
+                let maxBox = null;
+                
+                digitBoxes.forEach(box => {
+                    const countSpan = box.querySelector('.digit-count');
+                    if (countSpan) {
+                        const value = parseInt(countSpan.textContent);
+                        if (!isNaN(value) && value > maxValue) {
+                            maxValue = value;
+                            maxBox = box;
+                        }
+                    }
+                });
+                
+                // Aplicar destaque
+                if (maxBox) {
+                    console.log(`Valor máximo encontrado: ${maxValue}`);
+                    maxBox.style.backgroundColor = '#d9534f';
+                    maxBox.style.transform = 'scale(1.1)';
+                    maxBox.style.boxShadow = '0 0 8px rgba(217, 83, 79, 0.7)';
+                    
+                    const countSpan = maxBox.querySelector('.digit-count');
+                    if (countSpan) {
+                        countSpan.style.fontWeight = 'bold';
+                        countSpan.style.color = '#fff';
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Erro ao destacar frequência de dígitos:", error);
+        }
+        
+        // ===== 2. Destacar gráfico de frequência =====
+        try {
+            const chartRows = document.querySelectorAll('#digitChart > div');
+            console.log(`Encontradas ${chartRows.length} linhas no gráfico`);
+            
+            if (chartRows.length > 0) {
+                let maxValue = 0;
+                let maxRow = null;
+                
+                chartRows.forEach(row => {
+                    const valueDiv = row.querySelector('div > div:last-child');
+                    if (valueDiv) {
+                        const value = parseInt(valueDiv.textContent);
+                        if (!isNaN(value) && value > maxValue) {
+                            maxValue = value;
+                            maxRow = row;
+                        }
+                    }
+                });
+                
+                if (maxRow) {
+                    console.log(`Valor máximo no gráfico: ${maxValue}`);
+                    maxRow.style.backgroundColor = 'rgba(217, 83, 79, 0.15)';
+                    
+                    // Destacar a barra
+                    const bar = maxRow.querySelector('div > div > div');
+                    if (bar) {
+                        bar.style.backgroundColor = '#d9534f';
+                    }
+                    
+                    // Destacar o valor
+                    const valueDiv = maxRow.querySelector('div > div:last-child');
+                    if (valueDiv) {
+                        valueDiv.style.color = '#d9534f';
+                        valueDiv.style.fontWeight = 'bold';
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Erro ao destacar gráfico de frequência:", error);
+        }
+        
+        // ===== 3. Destacar tabelas =====
+        try {
+            // Combinações mais frequentes - coluna de frequência é a 3ª (índice 2)
+            highlightMaxValueInTable('table.combinations-table', 2);
+            
+            // Resumo por quantidade de dígitos - coluna de número de sorteios é a 2ª (índice 1)
+            highlightMaxValueInTable('table.summary-table', 1);
+            
+            // Modal de combinações similares - coluna de frequência é a 4ª (índice 3)
+            const modalTable = document.querySelector('.similares-table');
+            if (modalTable) {
+                highlightMaxValueInTable('.similares-table', 3);
+            }
+        } catch (error) {
+            console.error("Erro ao destacar tabelas:", error);
+        }
+    }
+    
+    // Função auxiliar para destacar o valor máximo em uma tabela
+    function highlightMaxValueInTable(selector, columnIndex) {
+        const table = document.querySelector(selector);
+        if (!table) {
+            console.log(`Tabela não encontrada: ${selector}`);
+            return;
+        }
+        
+        const rows = table.querySelectorAll('tbody tr');
+        if (rows.length === 0) {
+            console.log(`Nenhuma linha encontrada na tabela ${selector}`);
+            return;
+        }
+        
+        console.log(`Analisando ${rows.length} linhas na tabela ${selector}`);
+        
+        let maxValue = 0;
+        let maxRow = null;
+        
+        rows.forEach(row => {
+            if (row.cells.length <= columnIndex) return;
+            
+            const cell = row.cells[columnIndex];
+            const value = parseInt(cell.textContent.replace(/\D/g, ''));
+            
+            if (!isNaN(value) && value > maxValue) {
+                maxValue = value;
+                maxRow = row;
+            }
+        });
+        
+        if (maxRow) {
+            console.log(`Valor máximo na tabela ${selector}: ${maxValue}`);
+            
+            // Destacar a linha inteira
+            maxRow.style.backgroundColor = 'rgba(217, 83, 79, 0.15)';
+            
+            // Destacar a célula específica
+            const cell = maxRow.cells[columnIndex];
+            cell.style.fontWeight = 'bold';
+            cell.style.color = '#d9534f';
+            cell.style.fontSize = '110%';
+        }
+    }
+    
+    // Configurar o evento do botão de carregamento
+    function setupHighlightEvents() {
+        const loadButton = document.getElementById('loadButton');
+        if (loadButton) {
+            console.log("Botão de carregamento encontrado");
+            
+            // Adicionar o novo handler com nosso código
+            loadButton.addEventListener('click', function() {
+                console.log("Botão de carregar clicado, agendando destaque");
+                // Aguardar o carregamento dos dados (2 segundos deve ser suficiente)
+                setTimeout(highlightMaxValuesAfterLoading, 2000);
+            });
+            
+            // Verificar se já existem dados carregados
+            setTimeout(highlightMaxValuesAfterLoading, 1000);
+        } else {
+            console.warn("Botão de carregamento não encontrado!");
+            // Tentar novamente em 1 segundo
+            setTimeout(setupHighlightEvents, 1000);
+        }
+    }
+    
+    // Iniciar a configuração
+    setupHighlightEvents();
+    
+    // Adicionar CSS necessário
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Estilo para elementos destacados */
+        .highlighted-max {
+            transition: all 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
+});
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -1395,7 +1627,6 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     background-color: #F0F8FF;
-    overflow-x:auto;
 }
 
 th, td {

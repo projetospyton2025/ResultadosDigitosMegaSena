@@ -60,7 +60,6 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     background-color: #F0F8FF;
-    overflow-x:auto;
 }
 
 th, td {
@@ -300,6 +299,7 @@ footer {
 }
 
 
+
 /* Responsividade melhorada */
 @media (max-width: 768px) {
     .filters {
@@ -315,48 +315,5 @@ footer {
     .modal-content {
         width: 95%;
         margin: 10% auto;
-    }
-
-}
-/* Adicionar ao seu arquivo CSS (styles.css) */
-
-/* Contêiner para a tabela com barra de rolagem horizontal */
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #4CAF50;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Estilos adicionais para melhorar a responsividade da tabela */
-#megaSenaResults {
-    min-width: 800px; /* Garante que a tabela não encolha demais */
-    margin: 0; /* Remove margens da tabela dentro do contêiner */
-}
-
-/* Ajustes para melhorar a legibilidade em telas pequenas */
-@media (max-width: 768px) {
-    .table-container {
-        max-width: 100%;
-        padding: 0;
-    }
-    
-    #megaSenaResults th, 
-    #megaSenaResults td {
-        padding: 8px 5px;
-        font-size: 12px;
-    }
-    
-    /* Ajuste para colunas específicas em telas pequenas */
-    #megaSenaResults th:nth-child(3), 
-    #megaSenaResults td:nth-child(3),
-    #megaSenaResults th:nth-child(4), 
-    #megaSenaResults td:nth-child(4) {
-        max-width: 120px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 }
