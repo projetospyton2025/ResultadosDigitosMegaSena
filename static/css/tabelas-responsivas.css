@@ -1,0 +1,92 @@
+/* 
+ * CSS para tornar tabelas responsivas com barra de rolagem horizontal 
+ * Adicione este código ao seu arquivo styles.css existente
+ */
+
+/* Estilo para containers de tabelas responsivas */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Ajustes para tornar tabelas mais compactas em telas pequenas */
+@media screen and (max-width: 768px) {
+    .table-responsive table {
+        min-width: 650px; /* Garante que a tabela tenha um tamanho mínimo para necessitar rolagem */
+    }
+    
+    .table-responsive th,
+    .table-responsive td {
+        padding: 8px 5px;
+        font-size: 0.9rem;
+    }
+    
+    .table-responsive th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #4CAF50;
+    }
+}
+
+/* Indicadores visuais de rolagem horizontal */
+.table-responsive::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(to right, transparent, rgba(76, 175, 80, 0.3));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.table-responsive:hover::after {
+    opacity: 1;
+}
+
+/* Estilos específicos para cada tabela */
+#megaSenaResults, 
+.combinations-table, 
+.summary-table, 
+.frequency-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Ajustes para o container do resumo em telas pequenas */
+@media screen and (max-width: 768px) {
+    #resumo {
+        padding: 15px;
+    }
+    
+    #resumo h2 {
+        font-size: 1.2rem;
+    }
+    
+    #resumo p,
+    #resumo li {
+        font-size: 0.9rem;
+    }
+}
+
+/* Fix para botões em telas pequenas */
+@media screen and (max-width: 480px) {
+    .button {
+        padding: 8px 12px;
+        font-size: 14px;
+        margin: 5px;
+    }
+    
+    .actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
