@@ -304,6 +304,10 @@ footer {
     margin-right: 10%;
     text-align: justify;
 }
+.destaque {
+    color: red;
+}
+
 
 
 /* Responsividade melhorada */

@@ -118,10 +118,14 @@ function gerarResumo() {
         
         <h2 style="color: red;">Estratégia de Aposta Recomendada:</h2>
         
-        <ul>
+        <ol>
             <li>
                 <strong>Acompanhar o Intervalo Médio</strong>
                 <p>Como a média entre aparições é de <strong>${intervaloMedio} concursos</strong>, um bom momento para apostar nessa sequência seria quando ela já estiver sem sair por algo próximo a esse número de concursos.</p>
+            </li>
+			<li>
+                <strong>Apostar com Maior Frequência quando o Intervalo Estiver Próximo da Média (Intervalo Médio)</strong>
+                <p>Se o intervalo entre as aparições da sequência atingir <strong>25 a 35 concursos</strong>, pode ser um bom indicativo de que ela tem uma boa chance de sair.</p>
             </li>
             <li>
                 <strong>Monitorar o Último Intervalo</strong>
@@ -132,14 +136,10 @@ function gerarResumo() {
                 <p>Algumas combinações semelhantes (ex.: trocando o número <strong>6 por 7, 8 ou 9</strong>) também aparecem frequentemente. Fazer apostas variando um ou dois números pode aumentar as chances.</p>
             </li>
             <li>
-                <strong>Apostas com Maior Frequência Quando o Intervalo Estiver Próximo da Média</strong>
-                <p>Se o intervalo entre as aparições da sequência atingir <strong>25 a 35 concursos</strong>, pode ser um bom indicativo de que ela tem uma boa chance de sair.</p>
-            </li>
-            <li>
                 <strong>Evitar Apostar Quando a Sequência Saiu Recentemente</strong>
                 <p>Se essa sequência apareceu nos últimos <strong>5 a 10 concursos</strong>, a chance de repetição imediata pode ser menor.</p>
             </li>
-        </ul>
+        </ol>
         
         <h2>Conclusão:</h2>
         

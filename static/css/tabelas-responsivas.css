@@ -90,3 +90,44 @@
         justify-content: center;
     }
 }
+
+/* Estilos para responsividade da fonte em tabelas */
+table {
+    font-size: 16px; /* Tamanho padrão para telas grandes */
+}
+
+/* Ajuste de fonte para diferentes tamanhos de tela */
+@media screen and (max-width: 1200px) {
+    table {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    table {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    table {
+        font-size: clamp(10px, 2vw, 12px);
+    }
+}
+
+@media screen and (max-width: 576px) {
+    table {
+        font-size: clamp(8px, 1.8vw, 10px);
+    }
+}
+
+/* Seletores específicos para suas tabelas */
+@media screen and (max-width: 768px) {
+    #megaSenaResults,
+    .combinations-table,
+    .summary-table,
+    .intervalos-table,
+    .similares-table {
+        font-size: clamp(8px, 2vw, 12px);
+    }
+}
