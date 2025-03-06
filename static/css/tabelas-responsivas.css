@@ -13,27 +13,6 @@
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-/* Ajustes para tornar tabelas mais compactas em telas pequenas */
-@media screen and (max-width: 768px) {
-    .table-responsive table {
-        min-width: 650px; /* Garante que a tabela tenha um tamanho mínimo para necessitar rolagem */
-    }
-    
-    .table-responsive th,
-    .table-responsive td {
-        padding: 8px 5px;
-        font-size: clamp(10px, 2vw, 12px);
-    }
-    
-    .table-responsive th {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background-color: #4CAF50;
-    }
-}
-
 /* Indicadores visuais de rolagem horizontal */
 .table-responsive::after {
     content: "";
@@ -90,6 +69,95 @@
         justify-content: center;
     }
 }
+/* Ajustes para tornar tabelas mais compactas em telas pequenas 
+@media screen and (max-width: 768px) {
+    .table-responsive table {
+        min-width: 650px; /* Garante que a tabela tenha um tamanho mínimo para necessitar rolagem 
+    }
+    
+    .table-responsive th,
+    .table-responsive td {
+        padding: 8px 5px;
+        font-size: clamp(10px, 2vw, 12px);
+    }
+    
+    .table-responsive th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #4CAF50;
+    }
+}
+*/
+/* Para telas menores que 1024px (tablets e laptops pequenos) */
+@media screen and (max-width: 1024px) {
+    .table-responsive table {
+        min-width: 700px;
+    }
 
+    .table-responsive th,
+    .table-responsive td {
+        padding: 10px 6px;
+        font-size: clamp(11px, 2vw, 14px);
+    }
+
+    .table-responsive th {
+        background-color: #45A049;
+    }
+}
+
+/* Para telas menores que 768px (tablets e celulares grandes) */
+@media screen and (max-width: 768px) {
+    .table-responsive table {
+        min-width: 650px;
+    }
+
+    .table-responsive th,
+    .table-responsive td {
+        padding: 8px 5px;
+        font-size: clamp(10px, 2vw, 12px);
+    }
+
+    .table-responsive th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #4CAF50;
+    }
+}
+
+/* Para telas menores que 480px (celulares pequenos) */
+@media screen and (max-width: 480px) {
+    .table-responsive table {
+        min-width: 600px;
+    }
+
+    .table-responsive th,
+    .table-responsive td {
+        padding: 6px 4px;
+        font-size: clamp(9px, 2vw, 11px);
+    }
+
+    .table-responsive th {
+        background-color: #3E8E41;
+    }
+}
+
+/* Para telas menores que 360px (celulares muito pequenos) */
+@media screen and (max-width: 360px) {
+    .table-responsive table {
+        min-width: 550px;
+    }
+
+    .table-responsive th,
+    .table-responsive td {
+        padding: 5px 3px;
+        font-size: clamp(8px, 2vw, 10px);
+    }
+
+    .table-responsive th {
+        background-color: #2E7D32;
+    }
+}
 
         
